@@ -1,0 +1,12 @@
+Dos esctructuras, una para el inductor '1' de 21 cm y otra para el '2' de 15 cm. Así, en la esctructura de 21 cm, las medidas vo2, il2 y vc2 son irrelevantes y viceversa.
+
+En la estructura se añade información adicional como: frecuencia de muestreo, condensador de resonancia, condensador de snubber, recipiente, dispositivo y ganancias de filtros analógicos.
+
+Las medidas están ordenadas en frecuencias crecientes. La frecuencia de conmutación se puede consultar en myStruc.fsw(i) (correspondencia por columnas con las medidas de los ADCs).
+
+Las medidas están en el formato que tienen en FPGA <w,q> "signed <18,5>". Para obtener las señales en magnitudes del S.I. la conversión es:
+[S.I] = [ADC]*2^-5*(refADC/2^n)/analogGain
+
+donde
+refADC = 3.3 -> referencia ADCs [V]
+2^n -> n = nbits = 12
