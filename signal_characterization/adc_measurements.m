@@ -19,7 +19,7 @@ close all
 refADC = 3.3;
 n=12;
 
-data21 = load('../medidas/struc_21cm.mat');
+data21 = load('../medidas_adc/struc_21cm.mat');
 data21 = data21.myStruc;
 data21.vo = data21.vo1;
 data21.il = data21.il1;
@@ -34,7 +34,6 @@ data21 = rmfield(data21,'vc2');
 data21.il_si = data21.il*2^-5*(refADC/2^n)/data21.G_il;
 data21.vo_si = data21.il*2^-5*(refADC/2^n)/data21.G_vo;
 data21.vc_si = data21.il*2^-5*(refADC/2^n)/data21.G_vc;
-
 
 data15 = load('../medidas/struc_15cm.mat');
 data15 = data15.myStruc;
@@ -65,7 +64,9 @@ else
     data = data15;
 end
 
-dtype = strcat(data.Pot, '(',num2str (DIAMETER,'%d'),'cm)')
+t = (0:size(data.vmains,1)-1)/fs;
+
+dtype = strcat(data.Pot, '(',num2str (DIAMETER,'%d'),'cm)');
 
 %% Frequency selection
 
@@ -79,7 +80,7 @@ dtype = strcat(data.Pot, '(',num2str (DIAMETER,'%d'),'cm)')
 % 7 = 65000     7 = 75000
 % 8 = 70000
 % 9 = 75000
-fsw_idx = 7;
+
 
 fsw_legend=cell(size(data.fsw,2),1);%  two positions 
 for i=1:size(data.fsw,2)
@@ -87,8 +88,6 @@ for i=1:size(data.fsw,2)
 end
 
 %% Show data
-
-t = (0:size(data.vmains,1)-1)/fs;
 
 figure
 plot(t,data.vmains(:,fsw_idx))
@@ -121,7 +120,6 @@ legend(fsw_legend{fsw_idx})
 title(strcat('vc ',dtype))
 
 %% IL analysis
-fsw_idx = 4;
 
 figure
 plot(t,data.il)
@@ -129,14 +127,30 @@ legend(fsw_legend)
 title(strcat('il ',dtype))
 axis tight
 
-NFFT = 2048;
-ILF = fftshift(fft(data.il,2048,1));
-f= linspace(-fs/2,fs/2, NFFT) / 1e3;
 figure
-plot(f, abs(ILF))
+NFFT = 2048;
+f= linspace(-fs/2,fs/2, NFFT) / 1e3;
+for i=1:size(data.fsw,2)
+    ILF(:,i) = fftshift(fft(data.il(:,i),2048));
+    plot(f, 10*log10(abs(ILF(:,i))))
+    hold on
+end
 legend(fsw_legend)
 xlabel('f (kHz)')
 title(strcat('IL FFT ',dtype))
 axis tight
+%%
 
-
+figure
+plot(f, 10*log10(abs(ILF)))
+for i=1:size(data.fsw,2)    
+    [pk,lc] = findpeaks(10*log10(abs(ILF(:,i))),f,'MinPeakDistance',1.9*data.fsw(i)/1e3);
+    hold on
+    [~,pki] = maxk(pk,6);
+    plot(lc(pki),pk(pki),'v') 
+end
+legend(fsw_legend)
+title(strcat('Espectro de las señales il1 para distintas frecuencias ', dtype)) 
+ylabel('A(dB)')
+xlabel('f(kHz)')
+axis tight
