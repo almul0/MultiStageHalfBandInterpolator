@@ -84,6 +84,7 @@ data.t = data.t + data.t_dest(1);
 
 data.source_RMS = rms(data.il_dest(data.t_intersect)-data.il);
 [zc, zc_d] = zero_crossing(data.il);
+[zc_dest, zc_dest_d] = zero_crossing(data.il_dest);
 
 clear P
 clear Q
@@ -91,12 +92,14 @@ clear Q
 
 %% Zero Crossing
 figure
-plot(data.t,data.il)
+plot(data.t,data.il, '--r', 'DisplayName', '1MHz')
 hold on
-stem(data.t(zc~=0),data.il(zc~=0))
-zc_t = ((zc_d-1)/data.fs)+ data.t_dest(1);
-plot(zc_t,zeros(size(zc_t)),'Marker','x','LineStyle', 'none');
+plot(data.t_dest,data.il_dest, ':b', 'DisplayName', '8MHz')
 
+zc_t = ((zc_d-1)/data.fs)+ data.t_dest(1);
+zc_dest_t = ((zc_dest_d-1)/data.fs_dest)+ data.t_dest(1);
+plot(zc_t,zeros(size(zc_t)),'Marker','x','LineStyle', 'none');
+plot(zc_dest_t,zeros(size(zc_dest_t)),'Marker','*','LineStyle', 'none');
 
 
 %% IL analysis
