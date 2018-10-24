@@ -1,19 +1,27 @@
-function [zc, zc_d] = zero_crossing(z)
+function [zlocs] = zero_crossing(z, mzd, approximate)
     zprev = z(1);
-    zc = zeros(size(z));
-    zc_d = zeros(size(z));
+    zlocs = zeros(size(z));
+    zlocsi = 0;
     for i=2:size(z,1)
-       if (zprev == 0 && z(i) ~= 0)           
-           zc(i-1) = 2;
-           zc(i) = 1;
-           zc_d(i) = (i-1)+zero_crossing_d(zprev,z(i));
-       elseif ( z(i) ~= 0 && sign(zprev) ~= sign(z(i)) )
-           zc(i-1) = 1;
-           zc(i) = 1;
-           zc_d(i) = (i-1)+zero_crossing_d(zprev,z(i));
-       end
-       zprev = z(i);
+%        if (zprev == 0 && z(i) ~= 0)           
+%            zlocs(zlocsi) = (i-1)+zero_crossing_d(zprev,z(i));
+%            zlocsi = zlocsi+1;
+%        elseif ( z(i) ~= 0 && sign(zprev) ~= sign(z(i)) )
+%            zclocs(i) = (i-1)+zero_crossing_d(zprev,z(i));
+%        end
+        if ( zlocsi == 0 || (i - zlocs(zlocsi)) >= mzd )
+            if ( (sign(zprev) ~= sign(z(i)) || zprev == 0) && z(i) ~= 0 )
+                zlocsi = zlocsi+1;
+                if (approximate)
+                    zlocs(zlocsi) = (i-1)+zero_crossing_d(zprev,z(i));
+                else
+                    zlocs(zlocsi) = i;
+                end
+            end
+        end
+        zprev = z(i);
     end
+    zlocs = zlocs(1:zlocsi-1);
     
 end
 
