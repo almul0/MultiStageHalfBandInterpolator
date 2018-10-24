@@ -155,30 +155,30 @@ fsw = data.fsw;
 fs = data.fs_osc;
 t = data.t_osc;
 
-nperiods = 20
+nperiods = 32
 nperiod = round(nperiods*(1/fsw)*fs);
-nstart = 1;
-nend = nstart+nperiod;
-nend = size(il,1);
+nstart = ceil(size(il,1)/2)-(nperiod/2);
+nend = ceil(size(il,1)/2)+(nperiod/2);
+
 
 ilrms = rms(il);
 pavg = mean(il.*vo);
 
 [ilpkh_locs, ilpkl_locs] = peak_cicle_detector(il, fs, fsw);
-ilpkh_intval = ilpkh_locs(ilpkh_locs>=nstart <= ilpkh_locs<=nend);
-ilpkl_intval = ilpkl_locs(ilpkl_locs>=nstart <= ilpkl_locs<=nend);
+ilpkh_intval = ilpkh_locs(ilpkh_locs>=nstart & ilpkh_locs<=nend);
+ilpkl_intval = ilpkl_locs(ilpkl_locs>=nstart & ilpkl_locs<=nend);
 figure
 hold on
 plot(t(nstart:nend), il(nstart:nend),'r')
-plot(t(ilpkh_locs), il(ilpkh_intval), 'r', ...
+plot(t(ilpkh_intval), il(ilpkh_intval), 'r', ...
     'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
 plot(t(ilpkl_intval), il(ilpkl_intval), 'r', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
 
 
 [rise_locs, fall_locs] = igbt_edge_detector(vo, vbus);
-rlocs_intval = rise_locs(rise_locs>=nstart <= rise_locs<=nend);
-flocs_intval = fall_locs(fall_locs>=nstart <= fall_locs<=nend);
+rlocs_intval = rise_locs(rise_locs>=nstart & rise_locs<=nend);
+flocs_intval = fall_locs(fall_locs>=nstart & fall_locs<=nend);
 
 [ioffh, ioffl] = off_transition_current(data.il_osc, rise_locs, fall_locs);
 figure
@@ -188,35 +188,40 @@ yyaxis left
 plot(t(nstart:nend), vo(nstart:nend),':b')
 %plot(data.t_osc(n2start:n2end), data.vbus_osc(n2start:n2end),'k')
 
-plot(t(rise_locs), vo(rlocs_intval), 'b', ...
+plot(t(rlocs_intval), vo(rlocs_intval), 'b', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
-plot(t(fall_locs), vo(flocs_intval), 'b', ...
+plot(t(flocs_intval), vo(flocs_intval), 'b', ...
     'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
 ylabel('Vc')
 yyaxis right
 plot(t(nstart:nend), il(nstart:nend),'r')
-plot(t(rise_locs), il(rise_locs), 'r', ...
+plot(t(rlocs_intval), il(rlocs_intval), 'r', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
-plot(t(fall_locs), il(fall_locs), 'r', ...
+plot(t(flocs_intval), il(flocs_intval), 'r', ...
     'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
 ylabel('Il')
 xlabel('t(s)')
 axis tight
 
 [tsnbh_locs, tsnbl_locs] = snbcap_discharge_time(il, vbus, fs, rise_locs, fall_locs);
+tsnbh_intval = tsnbh_locs(tsnbh_locs>=nstart & tsnbh_locs<=nend);
+tsnbl_intval = tsnbl_locs(tsnbl_locs>=nstart & tsnbl_locs<=nend);
+
 tnsbh = 1/data.fs_osc * (tsnbh_locs-fall_locs);
 tnsbl = 1/data.fs_osc * (tsnbl_locs-rise_locs);
-plot(tsnbh_locs*1/fs, il(tsnbh_locs), 'k', ...
+plot(t(tsnbh_intval), il(tsnbh_intval), 'k', ...
     'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None')
-plot(tsnbl_locs*1/fs, il(tsnbl_locs), 'g', ...
+plot(t(tsnbl_intval), il(tsnbl_intval), 'g', ...
     'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None')
 
 
 
 mzd = round(0.2*data.fs_osc/data.fsw);
 [zc_locs] = zero_crossing(data.il_osc,mzd,0);
+zc_intval = zc_locs(zc_locs>=nstart & zc_locs<=nend);
+
 [tdhn, tdln] = diode_driving_time(zc_locs, tsnbh_locs, tsnbl_locs);
-plot(zc_locs*1/fs, il(zc_locs), 'k', ...
+plot(t(zc_intval), il(zc_intval), 'k', ...
     'Marker', 's', 'LineWidth',2, 'LineStyle', 'None')
 
 
