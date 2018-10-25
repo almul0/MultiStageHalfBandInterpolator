@@ -133,7 +133,7 @@ clear f_osc
 clear f_dst
 
 %% Extracción de paramétros temporales
-ss = data.adc;
+ss = data.int;
 
 
 nperiods = 32;
