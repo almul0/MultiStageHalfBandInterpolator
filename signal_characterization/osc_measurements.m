@@ -57,41 +57,47 @@ data.dtype = sprintf('(%1$s\\_ind%2$dcm)',BRAND, DIAMETER);
 data.fsw_legend= sprintf('fsw = %d Hz',data.fsw) ;
 
 % Set oscilloscope fs
-data.fs_osc = FS_OSCILLOSCOPE;
+data.osc.fs = FS_OSCILLOSCOPE;
 
 % Set simulated source fs
-data.fs = FS_OSCILLOSCOPE*FS_SOURCE_FACTOR;
-fprintf('Frecuencia de origen (fs): %.4f MHz\n', data.fs/1e6)
+data.adc.fs = FS_OSCILLOSCOPE*FS_SOURCE_FACTOR;
+fprintf('Frecuencia de origen (fs): %.4f MHz\n', data.adc.fs/1e6)
 
 % Set simulated target fs
-data.fs_dest = FS_OSCILLOSCOPE*FS_TARGET_FACTOR;
-fprintf('Frecuencia de destino (fs_dest): %.4f MHz\n', data.fs_dest/1e6)
+data.dst.fs = FS_OSCILLOSCOPE*FS_TARGET_FACTOR;
+fprintf('Frecuencia de dstino (fs_dst): %.4f MHz\n', data.dst.fs/1e6)
 
 % Interpolation factor
-R=round(data.fs_dest/data.fs);
+R=round(data.dst.fs/data.adc.fs);
 fprintf('Factor de interpolación (R): %d\n', R)
 
-data.il_osc = data_fd.all_var(:,2);
-data.vo_osc = data_fd.all_var(:,4);
-data.vc_osc = data_fd.all_var(:,3);
-data.vbus_osc = data_fd.all_var(:,1);
+data.osc.il = data_fd.all_var(:,2);
+data.osc.vo = data_fd.all_var(:,4);
+data.osc.vc = data_fd.all_var(:,3);
+data.osc.vbus = data_fd.all_var(:,1);
 
 
 % Signal accomodation
 % Remuestreo utilizando un filtro polifase de antialiasing
-% a la frecuencia de destino
-[P,Q] = rat(1/(data.fs_osc/data.fs_dest));
-data.il_dest = resample(data.il_osc,P,Q);
+% a la frecuencia de dstino
+[P,Q] = rat(1/(data.osc.fs/data.dst.fs));
+[data.dst.il, data.dst.b_res ] = resample(data.osc.il,P,Q);
+data.dst.vo= resample(data.osc.vo,P,Q, data.dst.b_res);
+data.dst.vc = resample(data.osc.vc,P,Q, data.dst.b_res);
+data.dst.vbus = resample(data.osc.vbus,P,Q, data.dst.b_res);
 
-% De la frecuencia de destino remuestreo utilizando un filtro 
+% De la frecuencia de dstino remuestreo utilizando un filtro 
 % polifase de antialiasing a la frecuencia de origen
-[P,Q] = rat(1/(data.fs_dest/data.fs));
-data.il = resample(data.il_dest,P,Q);
+[P,Q] = rat(1/(data.dst.fs/data.adc.fs));
+[data.adc.il, data.adc.b_res] = resample(data.dst.il,P,Q);
+data.adc.vo= resample(data.dst.vo,P,Q,data.adc.b_res);
+data.adc.vc = resample(data.dst.vc,P,Q, data.adc.b_res);
+data.adc.vbus = resample(data.dst.vbus,P,Q, data.adc.b_res);
 
 % Obtención de los instantes temporales de la señales
-data.t_osc = 0:1/data.fs_osc:(size(data.il_osc,1)-1)/data.fs_osc;
-data.t_dest = 0:1/data.fs_dest:(size(data.il_dest,1)-1)/data.fs_dest;
-data.t = 0:1/data.fs:(size(data.il,1)-1)/data.fs;
+data.osc.t = 0:1/data.osc.fs:(size(data.osc.il,1)-1)/data.osc.fs;
+data.dst.t = 0:1/data.dst.fs:(size(data.dst.il,1)-1)/data.dst.fs;
+data.adc.t = 0:1/data.adc.fs:(size(data.adc.il,1)-1)/data.adc.fs;
 
 clear data_fd
 clear P
@@ -100,43 +106,22 @@ clear Q
 
 % Zero insertion and RMS
 il_R = kron(data.il,[1 zeros(1,R-1)]');
-fprintf('Source RMS: %.4f\n', rms(data.il_dest-il_R));
+fprintf('Source RMS: %.4f\n', rms(data.il_dst-il_R));
 
 %% IL analysis & Zero Crossing
-cicle_n = round(0.2*data.fs/data.fsw);
-[zc_locs] = zero_crossing(data.il, cicle_n, 0);
-cicle_n = round(0.2*data.fs_dest/data.fsw);
-[zcl_dest] = zero_crossing(data.il_dest, cicle_n);
-cicle_n = round(0.2*data.fs_osc/data.fsw);
-[zcl_osc] = zero_crossing(data.il_osc, cicle_n);
-figure
-plot(data.t_osc,data.il_osc, 'k', 'DisplayName', sprintf('%.4fMHz', data.fs_osc/1e6))
-hold on
-plot(data.t_dest,data.il_dest, ':','Marker', '.', 'LineWidth', 2,'LineStyle', 'none', 'DisplayName', sprintf('%.4fMHz', data.fs_dest/1e6))
-plot(data.t,data.il, 'r', 'DisplayName', sprintf('%.4fMHz', data.fs/1e6))
-
-zc_t = ((zc_locs-1)/data.fs);
-zc_dest_t = ((zcl_dest-1)/data.fs_dest);
-zc_osc_t = ((zcl_osc-1)/data.fs_osc);
-plot(zc_t,ones(size(zc_t)).*data.il(zc_locs),'Marker','x','LineStyle', 'none');
-plot(zc_dest_t,zeros(size(zc_dest_t)),'Marker','*','LineStyle', 'none');
-plot(zc_osc_t,zeros(size(zc_osc_t)),'Marker','o','LineStyle', 'none');
-axis tight;
-legend;
-title(sprintf('Señales %s a %.2f kHz remuestreadas', data.dtype, data.fsw/1e3))
 
 %% Frequency spectra
 figure
 NFFT = 2^16;
-f= linspace(-data.fs/2,data.fs/2, NFFT) / 1e3;
-f_osc= linspace(-data.fs_osc/2,data.fs_osc/2, NFFT) / 1e3;
-f_dest = linspace(-data.fs_dest/2,data.fs_dest/2, NFFT) / 1e3;
-IL_F = fftshift(fft(data.il,NFFT));
-ILOSC_F = fftshift(fft(data.il_osc,NFFT));
-ILD_F = fftshift(fft(data.il_dest,NFFT));
+f= linspace(-data.adc.fs/2,data.adc.fs/2, NFFT) / 1e3;
+f_osc= linspace(-data.osc.fs/2,data.osc.fs/2, NFFT) / 1e3;
+f_dst = linspace(-data.dst.fs/2,data.dst.fs/2, NFFT) / 1e3;
+IL_F = fftshift(fft(data.adc.il,NFFT));
+ILOSC_F = fftshift(fft(data.osc.il,NFFT));
+ILD_F = fftshift(fft(data.dst.il,NFFT));
 plot(f_osc, 10*log10(abs(ILOSC_F)/max(abs(ILOSC_F))), 'DisplayName', 'Original')
 hold on
-plot(f_dest, 10*log10(abs(ILD_F)/max(abs(ILD_F))),'DisplayName', 'Target')
+plot(f_dst, 10*log10(abs(ILD_F)/max(abs(ILD_F))),'DisplayName', 'Target')
 plot(f, 10*log10(abs(IL_F)/max(abs(IL_F))),'DisplayName', 'Decimated')
 xlabel('f (kHz)')
 title(strcat('IL FFT ',data.dtype))
@@ -145,85 +130,112 @@ axis tight
 legend
 clear f
 clear f_osc
-clear f_dest
+clear f_dst
 
 %% Extracción de paramétros temporales
-il = data.il_osc;
-vo = data.vo_osc;
-vbus = data.vbus_osc;
-fsw = data.fsw;
-fs = data.fs_osc;
-t = data.t_osc;
-
-nperiods = 32
-nperiod = round(nperiods*(1/fsw)*fs);
-nstart = ceil(size(il,1)/2)-(nperiod/2);
-nend = ceil(size(il,1)/2)+(nperiod/2);
+ss = data.adc;
 
 
-ilrms = rms(il);
-pavg = mean(il.*vo);
+nperiods = 32;
+nperiod = round(nperiods*(1/data.fsw)*ss.fs);
+nstart = ceil(size(ss.il,1)/2)-(nperiod/2);
+nend = ceil(size(ss.il,1)/2)+(nperiod/2);
 
-[ilpkh_locs, ilpkl_locs] = peak_cicle_detector(il, fs, fsw);
-ilpkh_intval = ilpkh_locs(ilpkh_locs>=nstart & ilpkh_locs<=nend);
-ilpkl_intval = ilpkl_locs(ilpkl_locs>=nstart & ilpkl_locs<=nend);
+
+ss.il_rms = rms(ss.il);
+ss.p_avg = mean(ss.il.*ss.vo);
+
+il_range = ss.il(nstart:nend);
+vo_range = ss.vo(nstart:nend);
+vc_range = ss.vc(nstart:nend);
+vbus_range = ss.vbus(nstart:nend);
+t_range = ss.t(nstart:nend);
+
+[ss.ilpkh_locs, ss.ilpkl_locs] = peak_cicle_detector(il_range, ss.fs, data.fsw);
+ss.ilpkh = il_range(ss.ilpkh_locs);
+ss.ilpkl = il_range(ss.ilpkl_locs);
 figure
 hold on
-plot(t(nstart:nend), il(nstart:nend),'r')
-plot(t(ilpkh_intval), il(ilpkh_intval), 'r', ...
+plot(t_range, il_range,'r')
+plot(t_range(ss.ilpkh_locs), il_range(ss.ilpkh_locs), 'r', ...
     'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
-plot(t(ilpkl_intval), il(ilpkl_intval), 'r', ...
+plot(t_range(ss.ilpkl_locs), il_range(ss.ilpkl_locs), 'r', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
 
 
-[rise_locs, fall_locs] = igbt_edge_detector(vo, vbus);
-rlocs_intval = rise_locs(rise_locs>=nstart & rise_locs<=nend);
-flocs_intval = fall_locs(fall_locs>=nstart & fall_locs<=nend);
+[ss.rise_locs, ss.fall_locs] = igbt_edge_detector(vo_range, vbus_range);
 
-[ioffh, ioffl] = off_transition_current(data.il_osc, rise_locs, fall_locs);
+[ss.ioffh, ss.ioffl] = off_transition_current(il_range, ss.rise_locs, ss.fall_locs);
+
 figure
 hold on
 yyaxis left
-%plot(data.t_osc(n2start:n2end), data.vc_osc(n2start:n2end),'b')
-plot(t(nstart:nend), vo(nstart:nend),':b')
-%plot(data.t_osc(n2start:n2end), data.vbus_osc(n2start:n2end),'k')
+plot(t_range, vo_range,':b')
 
-plot(t(rlocs_intval), vo(rlocs_intval), 'b', ...
+plot(t_range(ss.rise_locs), vo_range(ss.rise_locs), 'b', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
-plot(t(flocs_intval), vo(flocs_intval), 'b', ...
+plot(t_range(ss.fall_locs), vo_range(ss.fall_locs), 'b', ...
     'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
 ylabel('Vc')
 yyaxis right
-plot(t(nstart:nend), il(nstart:nend),'r')
-plot(t(rlocs_intval), il(rlocs_intval), 'r', ...
+plot(t_range, il_range,'r')
+plot(t_range(ss.rise_locs), il_range(ss.rise_locs), 'r', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
-plot(t(flocs_intval), il(flocs_intval), 'r', ...
+plot(t_range(ss.fall_locs), il_range(ss.fall_locs), 'r', ...
     'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
 ylabel('Il')
 xlabel('t(s)')
 axis tight
 
-[tsnbh_locs, tsnbl_locs] = snbcap_discharge_time(il, vbus, fs, rise_locs, fall_locs);
-tsnbh_intval = tsnbh_locs(tsnbh_locs>=nstart & tsnbh_locs<=nend);
-tsnbl_intval = tsnbl_locs(tsnbl_locs>=nstart & tsnbl_locs<=nend);
+[ss.tsnbh_locs, ss.tsnbl_locs] = snbcap_discharge_time(il_range, vbus_range, ss.fs, ss.rise_locs, ss.fall_locs);
 
-tnsbh = 1/data.fs_osc * (tsnbh_locs-fall_locs);
-tnsbl = 1/data.fs_osc * (tsnbl_locs-rise_locs);
-plot(t(tsnbh_intval), il(tsnbh_intval), 'k', ...
+ss.tsnbh = 1/ss.fs * (ss.tsnbh_locs-ss.fall_locs);
+ss.tsnbl = 1/ss.fs * (ss.tsnbl_locs-ss.rise_locs);
+plot(t_range(ss.tsnbh_locs), il_range(ss.tsnbh_locs), 'r', ...
     'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None')
-plot(t(tsnbl_intval), il(tsnbl_intval), 'g', ...
+plot(t_range(ss.tsnbl_locs), il_range(ss.tsnbl_locs), 'g', ...
     'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None')
 
 
 
-mzd = round(0.2*data.fs_osc/data.fsw);
-[zc_locs] = zero_crossing(data.il_osc,mzd,0);
-zc_intval = zc_locs(zc_locs>=nstart & zc_locs<=nend);
+mzd = round(0.2*ss.fs/data.fsw);
+[ss.zc_locs] = zero_crossing(il_range,mzd,0);
 
-[tdhn, tdln] = diode_driving_time(zc_locs, tsnbh_locs, tsnbl_locs);
-plot(t(zc_intval), il(zc_intval), 'k', ...
+[ss.tdh_locs, ss.tdl_locs] = diode_driving_time(ss.zc_locs, ss.tsnbh_locs, ss.tsnbl_locs);
+ss.tdh = (ss.tdh_locs - ss.tsnbh_locs)/ss.fs;
+ss.tdl = (ss.tdl_locs - ss.tsnbl_locs)/ss.fs;
+
+
+plot(t_range(ss.zc_locs), il_range(ss.zc_locs), 'k', ...
     'Marker', 's', 'LineWidth',2, 'LineStyle', 'None')
 
+%% Quality measurements comparison
+s1 = data.dst;
+s2 = data.adc;
+
+fprintf('%d KHz\tmean\tstd\tmin\tmax\n', data.fsw/1e3)
+fprintf('e_ilrms\t%.4f\n', abs(s1.il_rms-s2.il_rms));
+fprintf('e_pavg\t%.4f\n', abs(s1.p_avg-s2.p_avg));
+ilpkh_stats = datastats(abs(s1.ilpkh-s2.ilpkh));
+fprintf('ilpk,H\t%.1e\t%.1e\t%.1e\t%.1e\n',ilpkh_stats.mean, ilpkh_stats.std, ilpkh_stats.min, ilpkh_stats.max);
+
+ioffh_stats = datastats(abs(s1.ioffh-s2.ioffh));
+fprintf('ioff,H\t%.1e\t%.1e\t%.1e\t%.1e\n',ioffh_stats.mean, ioffh_stats.std, ioffh_stats.min, ioffh_stats.max);
+
+ioffl_stats = datastats(abs(s1.ioffl-s2.ioffl));
+fprintf('ioff,L\t%.1e\t%.1e\t%.1e\t%.1e\n',ioffl_stats.mean, ioffl_stats.std, ioffl_stats.min, ioffl_stats.max);
+
+tsnbh_stats = datastats(abs(s1.tsnbh-s2.tsnbh));
+fprintf('tsnb,H\t%.1e\t%.1e\t%.1e\t%.1e\n',tsnbh_stats.mean, tsnbh_stats.std, tsnbh_stats.min, tsnbh_stats.max);
+
+tsnbl_stats = datastats(abs(s1.tsnbl-s2.tsnbl));
+fprintf('tsnb,L\t%.1e\t%.1e\t%.1e\t%.1e\n',tsnbl_stats.mean, tsnbl_stats.std, tsnbl_stats.min, tsnbl_stats.max);
+
+tdh_stats = datastats(abs(s1.tdh-s2.tdh));
+fprintf('td,H\t%.1e\t%.1e\t%.1e\t%.1e\n',tdh_stats.mean, tdh_stats.std, tdh_stats.min, tdh_stats.max);
+
+tdl_stats = datastats(abs(s1.tdl-s2.tdl));
+fprintf('td,L\t%.1e\t%.1e\t%.1e\t%.1e\n',tdl_stats.mean, tdl_stats.std, tdl_stats.min, tdl_stats.max);
 
 
 
