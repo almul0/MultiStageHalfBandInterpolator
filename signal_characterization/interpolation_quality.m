@@ -11,6 +11,10 @@ if display
     ilpkh_stats = datastats(abs(s1.ilpkh-s2.ilpkh));
     fprintf('ilpk,H\t%.1e\t%.1e\t%.1e\t%.1e\n',ilpkh_stats.mean, ilpkh_stats.std, ilpkh_stats.min, ilpkh_stats.max);
 
+    ilpkl_stats = datastats(abs(s1.ilpkl-s2.ilpkl));
+    fprintf('ilpk,L\t%.1e\t%.1e\t%.1e\t%.1e\n',ilpkl_stats.mean, ilpkl_stats.std, ilpkl_stats.min, ilpkl_stats.max);
+    
+    
     ioffh_stats = datastats(abs(s1.ioffh-s2.ioffh));
     fprintf('ioff,H\t%.1e\t%.1e\t%.1e\t%.1e\n',ioffh_stats.mean, ioffh_stats.std, ioffh_stats.min, ioffh_stats.max);
 
