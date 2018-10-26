@@ -75,6 +75,7 @@ data.osc.il = data_fd.all_var(:,2);
 data.osc.vo = data_fd.all_var(:,4);
 data.osc.vc = data_fd.all_var(:,3);
 data.osc.vbus = data_fd.all_var(:,1);
+data.osc.label = 'Oscilloscope';
 
 
 % Signal accomodation
@@ -85,6 +86,7 @@ data.osc.vbus = data_fd.all_var(:,1);
 data.dst.vo= resample(data.osc.vo,P,Q, data.dst.b_res);
 data.dst.vc = resample(data.osc.vc,P,Q, data.dst.b_res);
 data.dst.vbus = resample(data.osc.vbus,P,Q, data.dst.b_res);
+data.dst.label = 'Target';
 
 % De la frecuencia de dstino remuestreo utilizando un filtro 
 % polifase de antialiasing a la frecuencia de origen
@@ -93,6 +95,7 @@ data.dst.vbus = resample(data.osc.vbus,P,Q, data.dst.b_res);
 data.adc.vo= resample(data.dst.vo,P,Q,data.adc.b_res);
 data.adc.vc = resample(data.dst.vc,P,Q, data.adc.b_res);
 data.adc.vbus = resample(data.dst.vbus,P,Q, data.adc.b_res);
+data.adc.label = 'Source';
 
 % Obtención de los instantes temporales de la señales
 data.osc.t = 0:1/data.osc.fs:(size(data.osc.il,1)-1)/data.osc.fs;
@@ -111,26 +114,7 @@ fprintf('Source RMS: %.4f\n', rms(data.il_dst-il_R));
 %% IL analysis & Zero Crossing
 
 %% Frequency spectra
-figure
-NFFT = 2^16;
-f= linspace(-data.adc.fs/2,data.adc.fs/2, NFFT) / 1e3;
-f_osc= linspace(-data.osc.fs/2,data.osc.fs/2, NFFT) / 1e3;
-f_dst = linspace(-data.dst.fs/2,data.dst.fs/2, NFFT) / 1e3;
-IL_F = fftshift(fft(data.adc.il,NFFT));
-ILOSC_F = fftshift(fft(data.osc.il,NFFT));
-ILD_F = fftshift(fft(data.dst.il,NFFT));
-plot(f_osc, 10*log10(abs(ILOSC_F)/max(abs(ILOSC_F))), 'DisplayName', 'Original')
-hold on
-plot(f_dst, 10*log10(abs(ILD_F)/max(abs(ILD_F))),'DisplayName', 'Target')
-plot(f, 10*log10(abs(IL_F)/max(abs(IL_F))),'DisplayName', 'Decimated')
-xlabel('f (kHz)')
-title(strcat('IL FFT ',data.dtype))
-axis tight
-%xlim([-data.fs/2 data.fs/2]/1e3)
-legend
-clear f
-clear f_osc
-clear f_dst
+interpolation_freq_spectra(data)
 
 %% Extracción de paramétros temporales
 ss = data.int;
