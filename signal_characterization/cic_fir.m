@@ -1,6 +1,6 @@
 %% CIC Filter
 M=1; % Differential delay
-Q=8; % Number of stages
+Q=12; % Number of stages
 RM = M*R;
 gcic = (RM)^Q/R;
 Dd = (RM-1)/2+1;
@@ -11,15 +11,23 @@ B(1)    = 1;
 B(RM+1) = -1;
 A       = [ 1 -1 ];
 
-BQ = B;
-AQ = A;
+% BQ = B;
+% AQ = A;
+% if Q > 1
+%     for i=2:Q
+%         BQ = conv(BQ, B);
+%         AQ = conv(AQ, A);
+%     end
+% end
+% hcic = impz(BQ,AQ)';
+
+b = impz(B,A)';
+hcic = b;
 if Q > 1
     for i=2:Q
-        BQ = conv(BQ, B);
-        AQ = conv(AQ, A);
+        hcic = conv(hcic, b);
     end
 end
-hcic = impz(BQ,AQ)';
 hcic = hcic(find(hcic==max(hcic))-D/2:find(hcic==max(hcic))+D/2);
 
 plot(hcic)
