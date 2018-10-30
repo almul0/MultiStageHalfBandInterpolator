@@ -21,7 +21,7 @@ function [zlocs] = zero_crossing(z, mzd, approximate)
         end
         zprev = z(i);
     end
-    zlocs = zlocs(1:zlocsi-1);
+    zlocs = zlocs(1:zlocsi);
     
 end
 
