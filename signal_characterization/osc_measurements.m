@@ -14,7 +14,7 @@ DIAMETER = 21;
 
 % FSW en un valor entre los siguientes:
 % 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000
-FSW = 35e3;
+FSW = 75e3;
 % FSW = 40e3;
 % FSW = 45e3;
 % FSW = 50e3;
@@ -31,7 +31,7 @@ FS_SOURCE_FACTOR = 1/18; % 100/36 MHz
 
 %FS_TARGET_FACTOR = 1/9; % R = 2
 FS_TARGET_FACTOR = 1/3; % R = 6
-% FS_TARGET_FACTOR = 4/9; % R = 8
+%FS_TARGET_FACTOR = 4/9; % R = 8
 % FS_TARGET_FACTOR = 8/9; % R = 16
 
 
@@ -102,6 +102,10 @@ data.osc.t = 0:1/data.osc.fs:(size(data.osc.il,1)-1)/data.osc.fs;
 data.dst.t = 0:1/data.dst.fs:(size(data.dst.il,1)-1)/data.dst.fs;
 data.adc.t = 0:1/data.adc.fs:(size(data.adc.il,1)-1)/data.adc.fs;
 
+clear FSW
+clear FS_OSCILLOSCOPE
+clear FS_SOURCE_FACTOR
+clear FS_TARGET_FACTOR
 clear data_fd
 clear P
 clear Q
@@ -111,8 +115,6 @@ clear Q
 il_R = kron(data.il,[1 zeros(1,R-1)]');
 fprintf('Source RMS: %.4f\n', rms(data.il_dst-il_R));
 
-%% IL analysis & Zero Crossing
-
 %% Frequency spectra
 interpolation_freq_spectra(data)
 
@@ -121,13 +123,14 @@ ss = data.int;
 
 
 nperiods = 32;
-nperiod = round(nperiods*(1/data.fsw)*ss.fs);
-nstart = ceil(size(ss.il,1)/2)-(nperiod/2);
-nend = ceil(size(ss.il,1)/2)+(nperiod/2);
+nperiod2 = round(nperiods*(ss.fs/data.fsw)/2);
+nstart = ceil(size(ss.il,1)/2)-(nperiod2)-round((ss.fs/data.fsw)/8);
+nend = ceil(size(ss.il,1)/2)+(nperiod2)-round((ss.fs/data.fsw)/8);
 
-
-ss.il_rms = rms(ss.il);
-ss.p_avg = mean(ss.il.*ss.vo);
+l = size(ss.il,1);
+l099 = (round(l*0.005):round(l*0.995));
+ss.il_rms = rms(l099);
+ss.p_avg = mean(ss.il(l099).*ss.vo(l099));
 
 il_range = ss.il(nstart:nend);
 vo_range = ss.vo(nstart:nend);
@@ -136,6 +139,8 @@ vbus_range = ss.vbus(nstart:nend);
 t_range = ss.t(nstart:nend);
 
 [ss.ilpkh_locs, ss.ilpkl_locs] = peak_cicle_detector(il_range, ss.fs, data.fsw);
+numel(ss.ilpkh_locs)
+numel(ss.ilpkl_locs)
 ss.ilpkh = il_range(ss.ilpkh_locs);
 ss.ilpkl = il_range(ss.ilpkl_locs);
 figure
@@ -146,7 +151,7 @@ plot(t_range(ss.ilpkh_locs), il_range(ss.ilpkh_locs), 'r', ...
 plot(t_range(ss.ilpkl_locs), il_range(ss.ilpkl_locs), 'r', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
 
-
+%%
 [ss.rise_locs, ss.fall_locs] = igbt_edge_detector(vo_range, vbus_range);
 
 [ss.ioffh, ss.ioffl] = off_transition_current(il_range, ss.rise_locs, ss.fall_locs);
@@ -194,32 +199,7 @@ plot(t_range(ss.zc_locs), il_range(ss.zc_locs), 'k', ...
     'Marker', 's', 'LineWidth',2, 'LineStyle', 'None')
 
 %% Quality measurements comparison
-s1 = data.dst;
-s2 = data.adc;
-
-fprintf('%d KHz\tmean\tstd\tmin\tmax\n', data.fsw/1e3)
-fprintf('e_ilrms\t%.4f\n', abs(s1.il_rms-s2.il_rms));
-fprintf('e_pavg\t%.4f\n', abs(s1.p_avg-s2.p_avg));
-ilpkh_stats = datastats(abs(s1.ilpkh-s2.ilpkh));
-fprintf('ilpk,H\t%.1e\t%.1e\t%.1e\t%.1e\n',ilpkh_stats.mean, ilpkh_stats.std, ilpkh_stats.min, ilpkh_stats.max);
-
-ioffh_stats = datastats(abs(s1.ioffh-s2.ioffh));
-fprintf('ioff,H\t%.1e\t%.1e\t%.1e\t%.1e\n',ioffh_stats.mean, ioffh_stats.std, ioffh_stats.min, ioffh_stats.max);
-
-ioffl_stats = datastats(abs(s1.ioffl-s2.ioffl));
-fprintf('ioff,L\t%.1e\t%.1e\t%.1e\t%.1e\n',ioffl_stats.mean, ioffl_stats.std, ioffl_stats.min, ioffl_stats.max);
-
-tsnbh_stats = datastats(abs(s1.tsnbh-s2.tsnbh));
-fprintf('tsnb,H\t%.1e\t%.1e\t%.1e\t%.1e\n',tsnbh_stats.mean, tsnbh_stats.std, tsnbh_stats.min, tsnbh_stats.max);
-
-tsnbl_stats = datastats(abs(s1.tsnbl-s2.tsnbl));
-fprintf('tsnb,L\t%.1e\t%.1e\t%.1e\t%.1e\n',tsnbl_stats.mean, tsnbl_stats.std, tsnbl_stats.min, tsnbl_stats.max);
-
-tdh_stats = datastats(abs(s1.tdh-s2.tdh));
-fprintf('td,H\t%.1e\t%.1e\t%.1e\t%.1e\n',tdh_stats.mean, tdh_stats.std, tdh_stats.min, tdh_stats.max);
-
-tdl_stats = datastats(abs(s1.tdl-s2.tdl));
-fprintf('td,L\t%.1e\t%.1e\t%.1e\t%.1e\n',tdl_stats.mean, tdl_stats.std, tdl_stats.min, tdl_stats.max);
+interpolation_quality(data.adc,data.dst,0,data.fsw,1)
 
 
 
