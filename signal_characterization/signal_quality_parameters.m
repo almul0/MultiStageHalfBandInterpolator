@@ -1,14 +1,16 @@
 function [ss, range] = signal_quality_parameters(ss, fsw)
 
 nperiods = 32;
-nperiod = round(nperiods*(1/fsw)*ss.fs);
-nstart = ceil(size(ss.il,1)/2)-(nperiod/2);
-nend = ceil(size(ss.il,1)/2)+(nperiod/2);
+nperiod2 = round(nperiods*(1/fsw)*ss.fs/2);
+nstart = ceil(size(ss.il,1)/2)-(nperiod2)-round((ss.fs/fsw)/8);
+nend = ceil(size(ss.il,1)/2)+(nperiod2)-round((ss.fs/fsw)/8);
 
 ss.range = [nstart nend];
 
-ss.il_rms = rms(ss.il);
-ss.p_avg = mean(ss.il.*ss.vo);
+l = size(ss.il,1);
+l099 = (round(l*0.005):round(l*0.995));
+ss.il_rms = rms(ss.il(l099));
+ss.p_avg = mean(ss.il(l099).*ss.vo(l099));
 
 il_range = ss.il(nstart:nend);
 vo_range = ss.vo(nstart:nend);
