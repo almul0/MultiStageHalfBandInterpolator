@@ -25,23 +25,11 @@ FSW = 75e3;
 % FSW = 75e3;
 
 
-FS_OSCILLOSCOPE = 50e6;
-% 
-FS_SOURCE_FACTOR = 1/18; % 100/36 MHz
+FS_OSCILLOSCOPE = 50; % MHz
 
-%FS_TARGET_FACTOR = 1/9; % R = 2
-FS_TARGET_FACTOR = 1/3; % R = 6
-%FS_TARGET_FACTOR = 4/9; % R = 8
-% FS_TARGET_FACTOR = 8/9; % R = 16
+L = 6;
 
-
-%FS_SOURCE_FACTOR = 1/50; % 1 MHz
-% 
-% FS_TARGET_FACTOR = 1/25; % R = 2
-% FS_TARGET_FACTOR = 2/25; % R = 4
-% FS_TARGET_FACTOR = 6/50; % R = 4
-%FS_TARGET_FACTOR = 4/25; % R = 8
-%FS_TARGET_FACTOR = 8/25; % R = 16
+FS_DST = 100/6; % MHz
 
 data = {};
 data.fsw = FSW;
@@ -57,14 +45,14 @@ data.dtype = sprintf('(%1$s\\_ind%2$dcm)',BRAND, DIAMETER);
 data.fsw_legend= sprintf('fsw = %d Hz',data.fsw) ;
 
 % Set oscilloscope fs
-data.osc.fs = FS_OSCILLOSCOPE;
+data.osc.fs = FS_OSCILLOSCOPE*1e6;
 
 % Set simulated source fs
-data.adc.fs = FS_OSCILLOSCOPE*FS_SOURCE_FACTOR;
+data.adc.fs = 1e6*FS_DST/L;
 fprintf('Frecuencia de origen (fs): %.4f MHz\n', data.adc.fs/1e6)
 
 % Set simulated target fs
-data.dst.fs = FS_OSCILLOSCOPE*FS_TARGET_FACTOR;
+data.dst.fs = FS_DST*1e6;
 fprintf('Frecuencia de dstino (fs_dst): %.4f MHz\n', data.dst.fs/1e6)
 
 % Interpolation factor
@@ -119,7 +107,7 @@ fprintf('Source RMS: %.4f\n', rms(data.il_dst-il_R));
 interpolation_freq_spectra(data)
 
 %% Extracción de paramétros temporales
-ss = data.int;
+ss = data.dst;
 
 
 nperiods = 32;
@@ -145,13 +133,13 @@ ss.ilpkh = il_range(ss.ilpkh_locs);
 ss.ilpkl = il_range(ss.ilpkl_locs);
 figure
 hold on
-plot(t_range, il_range,'r')
+plot(t_range, il_range,'r', 'DisplayName', 'i_L')
 plot(t_range(ss.ilpkh_locs), il_range(ss.ilpkh_locs), 'r', ...
     'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
 plot(t_range(ss.ilpkl_locs), il_range(ss.ilpkl_locs), 'r', ...
     'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
 
-%%
+
 [ss.rise_locs, ss.fall_locs] = igbt_edge_detector(vo_range, vbus_range);
 
 [ss.ioffh, ss.ioffl] = off_transition_current(il_range, ss.rise_locs, ss.fall_locs);
@@ -159,19 +147,19 @@ plot(t_range(ss.ilpkl_locs), il_range(ss.ilpkl_locs), 'r', ...
 figure
 hold on
 yyaxis left
-plot(t_range, vo_range,':b')
+plot(t_range, vo_range,':b','DisplayName', 'v_{bus}')
 
 plot(t_range(ss.rise_locs), vo_range(ss.rise_locs), 'b', ...
-    'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
+    'Marker', '^', 'LineWidth',2, 'LineStyle', 'None','DisplayName', 'Flanco subida')
 plot(t_range(ss.fall_locs), vo_range(ss.fall_locs), 'b', ...
-    'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
+    'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None','DisplayName', 'Flanco bajada')
 ylabel('Vc')
 yyaxis right
-plot(t_range, il_range,'r')
+plot(t_range, il_range,'r','DisplayName','i_L')
 plot(t_range(ss.rise_locs), il_range(ss.rise_locs), 'r', ...
-    'Marker', '^', 'LineWidth',2, 'LineStyle', 'None')
+    'Marker', '^', 'LineWidth',2, 'LineStyle', 'None','DisplayName', 'Flanco subida')
 plot(t_range(ss.fall_locs), il_range(ss.fall_locs), 'r', ...
-    'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None')
+    'Marker', 'v', 'LineWidth',2, 'LineStyle', 'None','DisplayName', 'Flanco bajada')
 ylabel('Il')
 xlabel('t(s)')
 axis tight
@@ -180,10 +168,10 @@ axis tight
 
 ss.tsnbh = 1/ss.fs * (ss.tsnbh_locs-ss.fall_locs);
 ss.tsnbl = 1/ss.fs * (ss.tsnbl_locs-ss.rise_locs);
-plot(t_range(ss.tsnbh_locs), il_range(ss.tsnbh_locs), 'r', ...
-    'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None')
+plot(t_range(ss.tsnbh_locs), il_range(ss.tsnbh_locs), 'g', ...
+    'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None','DisplayName', 't_{snb,H}')
 plot(t_range(ss.tsnbl_locs), il_range(ss.tsnbl_locs), 'g', ...
-    'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None')
+    'Marker', 'o', 'LineWidth',2, 'LineStyle', 'None','DisplayName', 't_{snb,L}')
 
 
 
@@ -196,7 +184,7 @@ ss.tdl = (ss.tdl_locs - ss.tsnbl_locs)/ss.fs;
 
 
 plot(t_range(ss.zc_locs), il_range(ss.zc_locs), 'k', ...
-    'Marker', 's', 'LineWidth',2, 'LineStyle', 'None')
+    'Marker', 's', 'LineWidth',2, 'LineStyle', 'None','DisplayName', 'zero cross')
 
 %% Quality measurements comparison
 interpolation_quality(data.adc,data.dst,0,data.fsw,1)
