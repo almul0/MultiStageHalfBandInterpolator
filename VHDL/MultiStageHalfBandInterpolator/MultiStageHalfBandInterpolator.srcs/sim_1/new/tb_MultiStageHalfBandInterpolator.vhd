@@ -109,36 +109,50 @@ begin
 		variable v_row          : line;
 		Variable v_data_read  : integer;
 	begin
-		file_open(file_SIGNAL, "test_signal_5.dat",  read_mode);		
+		file_open(file_SIGNAL, "test_signal_5.dat",  read_mode);
+		
+		wait for 10 ns;
+		
 		while not endfile(file_SIGNAL) loop
+		
 			readline(file_SIGNAL, v_row);
 			read(v_row, v_data_read);
+			
 			MasterAxi_RO.m_axi_wdata <= std_logic_vector(to_signed(v_data_read,C_S_AXI_DATA_WIDTH));
 			MasterAxi_RO.m_axi_wvalid <= '1';
-			wait until MasterAxi_RI.m_axi_wready = '1';
-			wait for CLK_PERIOD;
+			
+			wait until MasterAxi_RI.m_axi_wready = '0';			
+			
 			MasterAxi_RO.m_axi_wdata <= (others => '0');
 			MasterAxi_RO.m_axi_bready <= '1';
 			MasterAxi_RO.m_axi_wvalid <= '0';
-			wait until MasterAxi_RI.m_axi_bvalid  = '1';
-			wait for CLK_PERIOD;
+			
+			wait until MasterAxi_RI.m_axi_bvalid  = '0';		
+				
 			MasterAxi_RO.m_axi_bready <= '0';
+			
 			wait for ADC_PERIOD-2*CLK_PERIOD;
-		end loop;		
+			
+		end loop;
 	end process;
 	
 	read_proc: process
 		variable v_row          : line;
 		Variable v_data_read  : integer;
-	begin		
-		SlaveAxi_RO.s_axi_wready <= '1';
-		wait until SlaveAxi_RI.s_axi_wvalid = '1';
-		wait for CLK_PERIOD;
-		SlaveAxi_RO.s_axi_wready <= '0';
-		SlaveAxi_RO.s_axi_bvalid <= '1';
-		wait until SlaveAxi_RI.s_axi_bready  = '1';
-		wait for CLK_PERIOD;
-		SlaveAxi_RO.s_axi_bvalid <= '0';
+	begin
+			wait for CLK_PERIOD/2;
+			
+			SlaveAxi_RO.s_axi_wready <= '1';
+			
+			wait until SlaveAxi_RI.s_axi_wvalid = '0';
+								
+			SlaveAxi_RO.s_axi_wready <= '0';
+			SlaveAxi_RO.s_axi_bvalid <= '1';
+			
+			wait until SlaveAxi_RI.s_axi_bready  = '0';
+						
+			SlaveAxi_RO.s_axi_bvalid <= '0';
+			
 	end process;
 
 end Behavioral;

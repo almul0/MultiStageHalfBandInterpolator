@@ -53,7 +53,7 @@ end HalfBandFilter;
 architecture Behavioral of HalfBandFilter is
 	signal SampleIn_D : std_logic_vector(SAMPLE_DATA_WIDTH-1 downto 0):= (others => '0');
 	signal SampleIn_DN : std_logic_vector(SAMPLE_DATA_WIDTH-1 downto 0):= (others => '0');
-	type AxiStateType is (IDLE, WAIT_READY, WAIT_VALID);  -- Define the states
+	type AxiStateType is (IDLE, WAIT_WREADY, WAIT_WVALID, WAIT_BVALID, WAIT_BREADY);  -- Define the states
 	signal SlaveAxiState_S, SlaveAxiState_SN : AxiStateType;    -- Create a signal that uses
 	signal MasterAxiState_S, MasterAxiState_SN : AxiStateType;    -- Create a signal that uses
 	
@@ -62,8 +62,6 @@ architecture Behavioral of HalfBandFilter is
 
 	signal ClkDividerCounter_S,ClkDividerCounter_SN: unsigned(integer(floor(log2(real(PRESCALER)))) downto 0) := (others => '0');
 	signal OutEnable_S,OutEnable_SN: std_logic := '0';
-		
-	
 
 	signal Out1_D: std_logic_vector(SAMPLE_DATA_WIDTH-1 downto 0) := "00" & x"00FF";
 	signal Out2_D: std_logic_vector(SAMPLE_DATA_WIDTH-1 downto 0) := "00" & x"FF00";
@@ -99,7 +97,7 @@ begin
 	    end if; 
 	end process;
 
-	MASTERAXI_DECODE: process(MasterAxiState_S, OutEnable_S, ClkDividerCounter_S, OutSelector_S, MasterAxi_RI.m_axi_wready, MasterAxi_RI.m_axi_bvalid)
+	MASTERAXI_DECODE: process(MasterAxiState_S, OutEnable_S, ClkDividerCounter_S, MasterAxi_RI.m_axi_wready, MasterAxi_RI.m_axi_bvalid)
 	begin
 				
 		-- State Machine controlling data output
@@ -108,29 +106,51 @@ begin
 		MasterAxi_RO.m_axi_wstrb <= (others => '1');
 		MasterAxi_RO.m_axi_wdata <= (others => '0');
 		
+		MasterAxiState_SN <= MasterAxiState_S;
+		
 		case MasterAxiState_S is
 			when IDLE =>
-				if ((OutEnable_S = '1' AND ClkDividerCounter_S = 0)
-						OR (OutEnable_S = '0' AND ClkDividerCounter_S = PRESCALER)) then
-					if MasterAxi_RI.m_axi_wready = '1' then
-						MasterAxiState_SN <= WAIT_VALID;
-					else 		
-						MasterAxiState_SN <= WAIT_READY;
-					end if;
-					MasterAxi_RO.m_axi_wdata <= (MasterAxi_RO.m_axi_wdata'length-1 downto Out_D'length => '0') & Out_D;
-					MasterAxi_RO.m_axi_wvalid <= '1';					
-				end if;
-			when WAIT_READY =>			
+				if ( (OutEnable_S = '1' AND ClkDividerCounter_S = 0)
+					  	OR (OutEnable_S = '0' AND ClkDividerCounter_S = PRESCALER) ) then 		  
+					  	  	
 					MasterAxi_RO.m_axi_wdata <= (MasterAxi_RO.m_axi_wdata'length-1 downto Out_D'length => '0') & Out_D;
 					MasterAxi_RO.m_axi_wvalid <= '1';
-					if MasterAxi_RI.m_axi_wready = '1' then							
-						MasterAxiState_SN <= WAIT_VALID;
+					
+					if (MasterAxi_RI.m_axi_wready = '0') then
+						MasterAxiState_SN <= WAIT_WREADY;
+					else  
+						MasterAxiState_SN <= WAIT_BREADY;
+						
+					end if;
 				end if;
-				when WAIT_VALID =>			
+							
+
+			when WAIT_WREADY =>		
+					MasterAxi_RO.m_axi_wdata <= (MasterAxi_RO.m_axi_wdata'length-1 downto Out_D'length => '0') & Out_D;
+					MasterAxi_RO.m_axi_wvalid <= '1';
+					
+					if MasterAxi_RI.m_axi_wready = '1' then
+						MasterAxiState_SN <= WAIT_BVALID;
+						MasterAxi_RO.m_axi_wdata <= (others => '0');
+						MasterAxi_RO.m_axi_wvalid <= '0';
+						MasterAxi_RO.m_axi_bready <= '1';							
+					end if;
+					
+			when WAIT_BREADY =>	
+				MasterAxi_RO.m_axi_bready <= '1';
+				if MasterAxi_RI.m_axi_bvalid = '1' then			
+					MasterAxiState_SN <= IDLE;
+			 	else
+					MasterAxiState_SN <= WAIT_BVALID;
+				end if;
+				
+			when WAIT_BVALID =>											
 					MasterAxi_RO.m_axi_bready <= '1';
-					if MasterAxi_RI.m_axi_bvalid = '1' then							
+					if MasterAxi_RI.m_axi_bvalid = '1' then			
+						MasterAxi_RO.m_axi_bready <= '0';				
 						MasterAxiState_SN <= IDLE;
-				end if;
+					end if;
+					
 			when others =>
 				MasterAxiState_SN <= IDLE;
 		end case;
@@ -146,6 +166,7 @@ begin
 		SampleIn_DN <= SampleIn_D;
 		OutEnable_SN <= '0';
 		OutSelector_SN <= '0';
+		SlaveAxiState_SN <= SlaveAxiState_S;
 		
 		if ( (ClkDividerCounter_S > 0 AND ClkDividerCounter_S <= PRESCALER) OR OutEnable_S = '1') then
 			ClkDividerCounter_SN <= ClkDividerCounter_S + 1;
@@ -155,17 +176,18 @@ begin
 		
 		case SlaveAxiState_S is
 			when IDLE =>
-				SlaveAxiState_SN <= WAIT_VALID;
-			when WAIT_VALID =>
+				SlaveAxiState_SN <= WAIT_WVALID;
+				SlaveAxi_RO.s_axi_wready <= '1';
+			when WAIT_WVALID =>
 				SlaveAxi_RO.s_axi_wready <= '1';
 				if SlaveAxi_RI.s_axi_wvalid = '1' then
 					SampleIn_DN <= SlaveAxi_RI.s_axi_wdata(17 downto 0);
 					OutEnable_SN <= '1';
 					OutSelector_SN <= '0';
 					ClkDividerCounter_SN <= (others => '0');
-					SlaveAxiState_SN <= WAIT_READY;
+					SlaveAxiState_SN <= WAIT_BREADY;
 				end if;
-			when WAIT_READY =>		
+			when WAIT_BREADY =>		
 				SlaveAxi_RO.s_axi_bvalid <= '1';
 				if SlaveAxi_RI.s_axi_bready = '1' then							
 					SlaveAxiState_SN <= IDLE;
