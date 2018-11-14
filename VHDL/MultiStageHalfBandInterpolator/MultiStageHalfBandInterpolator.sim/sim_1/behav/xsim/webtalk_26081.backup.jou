@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2018.2.2 (64-bit)
+# SW Build 2348494 on Mon Oct  1 18:25:39 MDT 2018
+# IP Build 2318053 on Mon Oct  1 21:44:26 MDT 2018
+# Start of session at: Tue Nov 13 12:24:06 2018
+# Process ID: 26081
+# Current directory: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.sim/sim_1/behav/xsim
+# Command line: wbtcv -mode batch -source /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.sim/sim_1/behav/xsim/xsim.dir/tb_MultiStageHalfBandInterpolator_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.sim/sim_1/behav/xsim/webtalk.jou
+#-----------------------------------------------------------
+source /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.sim/sim_1/behav/xsim/xsim.dir/tb_MultiStageHalfBandInterpolator_behav/webtalk/xsim_webtalk.tcl -notrace
