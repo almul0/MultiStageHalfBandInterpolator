@@ -67,6 +67,9 @@ architecture Behavioral of tb_MultiStageHalfBandInterpolator is
 	constant CLK_PERIOD : time := 10 ns;
 	constant ADC_PERIOD : time := 480 ns;	
 	
+	signal signal_debug: integer:= 0;
+	
+	signal file_ended: std_logic:= '0';
 	
 begin
 
@@ -104,6 +107,7 @@ begin
 	end process;
 	
 	MasterAxi_RO.m_axi_aresetn <= '0','1' after 11 ns ;
+	
 
 	adc_proc: process
 		variable v_row          : line;
@@ -121,38 +125,73 @@ begin
 			MasterAxi_RO.m_axi_wdata <= std_logic_vector(to_signed(v_data_read,C_S_AXI_DATA_WIDTH));
 			MasterAxi_RO.m_axi_wvalid <= '1';
 			
-			wait until MasterAxi_RI.m_axi_wready = '0';			
+			wait until rising_edge(MasterAxi_RO.m_axi_aclk);
+			
+			if ( MasterAxi_RI.m_axi_wready = '0' ) then
+				wait until MasterAxi_RI.m_axi_wready = '1';										
+			end if;
+			wait for CLK_PERIOD;
 			
 			MasterAxi_RO.m_axi_wdata <= (others => '0');
 			MasterAxi_RO.m_axi_bready <= '1';
 			MasterAxi_RO.m_axi_wvalid <= '0';
 			
-			wait until MasterAxi_RI.m_axi_bvalid  = '0';		
+			if ( MasterAxi_RI.m_axi_bvalid = '0' ) then
+				wait until MasterAxi_RI.m_axi_bvalid = '1';										
+			end if;
+			wait for CLK_PERIOD;
 				
 			MasterAxi_RO.m_axi_bready <= '0';
 			
 			wait for ADC_PERIOD-2*CLK_PERIOD;
 			
 		end loop;
+		file_close(file_SIGNAL);
+		    
+		     
+		file_ended <= '1';
 	end process;
 	
 	read_proc: process
 		variable v_row          : line;
-		Variable v_data_read  : integer;
+		Variable v_data_write  : integer;
 	begin
-			wait for CLK_PERIOD/2;
+			wait for 10 ns;
 			
-			SlaveAxi_RO.s_axi_wready <= '1';
+			file_open(file_RESULTS, "test_results_5.dat",  write_mode);
+			while file_ended = '0' loop
 			
-			wait until SlaveAxi_RI.s_axi_wvalid = '0';
-								
-			SlaveAxi_RO.s_axi_wready <= '0';
-			SlaveAxi_RO.s_axi_bvalid <= '1';
-			
-			wait until SlaveAxi_RI.s_axi_bready  = '0';
-						
-			SlaveAxi_RO.s_axi_bvalid <= '0';
-			
+				SlaveAxi_RO.s_axi_wready <= '1';
+				
+				if ( SlaveAxi_RI.s_axi_wvalid = '0' ) then
+					wait until SlaveAxi_RI.s_axi_wvalid = '1';
+				end if;
+				
+				
+				signal_debug <=to_integer(signed(SlaveAxi_RI.s_axi_wdata(C_S_SAMPLE_DATA_WIDTH-1 downto 0)));
+				v_data_write := to_integer(signed(SlaveAxi_RI.s_axi_wdata(C_S_SAMPLE_DATA_WIDTH-1 downto 0)));
+				write(v_row, v_data_write);
+				writeline(file_RESULTS, v_row);
+				
+				wait until rising_edge(MasterAxi_RO.m_axi_aclk);
+				SlaveAxi_RO.s_axi_wready <= '0';
+				--wait until SlaveAxi_RI.s_axi_wvalid = '0';
+				
+				SlaveAxi_RO.s_axi_bvalid <= '1';
+				
+				
+				
+				if ( SlaveAxi_RI.s_axi_bready = '0' ) then
+					wait until SlaveAxi_RI.s_axi_bready = '1';										
+				end if;
+				
+				wait until rising_edge(MasterAxi_RO.m_axi_aclk);				
+				SlaveAxi_RO.s_axi_bvalid <= '0';
+				
+			end loop;
+			file_close(file_RESULTS);
+			ASSERT FALSE
+			REPORT "FILE CLOSED";
 	end process;
 
 end Behavioral;

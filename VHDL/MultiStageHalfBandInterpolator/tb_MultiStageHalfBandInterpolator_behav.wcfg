@@ -11,34 +11,30 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1333333fs"></ZoomStartTime>
-      <ZoomEndTime time="125733334fs"></ZoomEndTime>
-      <Cursor1Time time="105000000fs"></Cursor1Time>
+      <ZoomStartTime time="12533334fs"></ZoomStartTime>
+      <ZoomEndTime time="261333335fs"></ZoomEndTime>
+      <Cursor1Time time="25000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="176"></NameColumnWidth>
       <ValueColumnWidth column_width="146"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="31" />
+   <WVObjectSize size="35" />
    <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/SlaveAxi_RI">
       <obj_property name="ElementShortName">SlaveAxi_RI</obj_property>
       <obj_property name="ObjectShortName">SlaveAxi_RI</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/SlaveAxi_RO">
       <obj_property name="ElementShortName">SlaveAxi_RO</obj_property>
       <obj_property name="ObjectShortName">SlaveAxi_RO</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/MasterAxi_RI">
       <obj_property name="ElementShortName">MasterAxi_RI</obj_property>
       <obj_property name="ObjectShortName">MasterAxi_RI</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/MasterAxi_RO">
       <obj_property name="ElementShortName">MasterAxi_RO</obj_property>
       <obj_property name="ObjectShortName">MasterAxi_RO</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/MasterAxi_RO.m_axi_aclk">
          <obj_property name="ElementShortName">.m_axi_aclk</obj_property>
          <obj_property name="ObjectShortName">.m_axi_aclk</obj_property>
@@ -209,5 +205,58 @@
    <wvobject type="other" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/MasterAxiState_SN">
       <obj_property name="ElementShortName">MasterAxiState_SN</obj_property>
       <obj_property name="ObjectShortName">MasterAxiState_SN</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/SampleIn_D">
+      <obj_property name="ElementShortName">SampleIn_D[17:0]</obj_property>
+      <obj_property name="ObjectShortName">SampleIn_D[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SampleIn_D">
+      <obj_property name="ElementShortName">SampleIn_D[17:0]</obj_property>
+      <obj_property name="ObjectShortName">SampleIn_D[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/SampleIn_D">
+      <obj_property name="ElementShortName">SampleIn_D[17:0]</obj_property>
+      <obj_property name="ObjectShortName">SampleIn_D[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MasterAxi_RO">
+      <obj_property name="ElementShortName">MasterAxi_RO</obj_property>
+      <obj_property name="ObjectShortName">MasterAxi_RO</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MasterAxi_RO.m_axi_aclk">
+         <obj_property name="ElementShortName">.m_axi_aclk</obj_property>
+         <obj_property name="ObjectShortName">.m_axi_aclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MasterAxi_RO.m_axi_aresetn">
+         <obj_property name="ElementShortName">.m_axi_aresetn</obj_property>
+         <obj_property name="ObjectShortName">.m_axi_aresetn</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MasterAxi_RO.m_axi_wdata">
+         <obj_property name="ElementShortName">.m_axi_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">.m_axi_wdata[31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MasterAxi_RO.m_axi_wstrb">
+         <obj_property name="ElementShortName">.m_axi_wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">.m_axi_wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MasterAxi_RO.m_axi_wvalid">
+         <obj_property name="ElementShortName">.m_axi_wvalid</obj_property>
+         <obj_property name="ObjectShortName">.m_axi_wvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MasterAxi_RO.m_axi_bready">
+         <obj_property name="ElementShortName">.m_axi_bready</obj_property>
+         <obj_property name="ObjectShortName">.m_axi_bready</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

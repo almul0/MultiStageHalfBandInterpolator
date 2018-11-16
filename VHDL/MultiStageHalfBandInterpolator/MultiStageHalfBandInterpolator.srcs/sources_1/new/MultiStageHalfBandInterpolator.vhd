@@ -46,11 +46,12 @@ entity MultiStageHalfBandInterpolator is
 end MultiStageHalfBandInterpolator;
 
 architecture Behavioral of MultiStageHalfBandInterpolator is
-	COMPONENT HalfBandFilter
+	COMPONENT HalfBandFilterThreeTaps
 	Generic(
-			 SAMPLE_DATA_WIDTH: integer;
 	     PRESCALER: integer;
-	     COEFFS: CoeffsArray
+	     COEFF0: Coeff;
+			 COEFF1: Coeff;
+			 COEFF2: Coeff
 	     );
 	PORT(
 			SlaveAxi_RI : in GLOBAL2SAXILITE;
@@ -60,6 +61,20 @@ architecture Behavioral of MultiStageHalfBandInterpolator is
 			MasterAxi_RO : out MAXILITE2GLOBAL
 			);
 	END COMPONENT;
+	COMPONENT HalfBandFilterTwoTaps
+		Generic(
+		     PRESCALER: integer;
+		     COEFF0: Coeff;
+				 COEFF1: Coeff
+		     );
+		PORT(
+				SlaveAxi_RI : in GLOBAL2SAXILITE;
+				SlaveAxi_RO : out SAXILITE2GLOBAL;
+				
+				MasterAxi_RI : in GLOBAL2MAXILITE;
+				MasterAxi_RO : out MAXILITE2GLOBAL
+				);
+		END COMPONENT;
 	
 	signal Master03Axi_RI : GLOBAL2MAXILITE;
 	signal Master03Axi_RO : MAXILITE2GLOBAL;
@@ -68,11 +83,12 @@ architecture Behavioral of MultiStageHalfBandInterpolator is
 	signal Master02Axi_RO : MAXILITE2GLOBAL;
 	
 begin
-	HB3: HalfBandFilter
+	HB3: HalfBandFilterThreeTaps
 	GENERIC MAP(
-		SAMPLE_DATA_WIDTH => C_S_SAMPLE_DATA_WIDTH,
 		PRESCALER => PrescalerHB3,
-		COEFFS => CoeffsHB3
+		COEFF0 => C_HB3_0,
+		COEFF1 => C_HB3_1,
+		COEFF2 => C_HB3_2
 	)
 	PORT MAP(
 		SlaveAxi_RI.s_axi_aclk     => SlaveAxi_RI.s_axi_aclk,
@@ -98,11 +114,11 @@ begin
 		MasterAxi_RI.m_axi_bvalid  => Master03Axi_RI.m_axi_bvalid	
 	);
 	
-	HB2: HalfBandFilter
+	HB2: HalfBandFilterTwoTaps
 		GENERIC MAP(
-			SAMPLE_DATA_WIDTH => C_S_SAMPLE_DATA_WIDTH,
 			PRESCALER => PrescalerHB2,
-			COEFFS => CoeffsHB2
+				COEFF0 => C_HB2_0,
+				COEFF1 => C_HB2_1
 		)
 		PORT MAP(
 			SlaveAxi_RI.s_axi_aclk     => Master03Axi_RO.m_axi_aclk,
@@ -129,11 +145,11 @@ begin
 			
 		);
 		
-		HB1: HalfBandFilter
+		HB1: HalfBandFilterTwoTaps
 			GENERIC MAP(
-				SAMPLE_DATA_WIDTH => C_S_SAMPLE_DATA_WIDTH,
 				PRESCALER => PrescalerHB1,
-				COEFFS => CoeffsHB1
+				COEFF0 => C_HB1_0,
+				COEFF1 => C_HB1_1
 			)
 			PORT MAP(
 				SlaveAxi_RI.s_axi_aclk     => Master02Axi_RO.m_axi_aclk,

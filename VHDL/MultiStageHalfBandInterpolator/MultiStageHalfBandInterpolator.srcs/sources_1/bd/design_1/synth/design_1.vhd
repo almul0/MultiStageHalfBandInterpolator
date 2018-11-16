@@ -1,0 +1,9 @@
+--Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------
+--Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
+--Date        : Thu Nov 15 00:06:06 2018
+--Host        : cerebellum running 64-bit Debian GNU/Linux unstable (sid)
+--Command     : generate_target design_1.bd
+--Design      : design_1
+--Purpose     : IP block netlist
+----------------------------------------------------------------------------------

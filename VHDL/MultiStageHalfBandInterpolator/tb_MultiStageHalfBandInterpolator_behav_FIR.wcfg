@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_MultiStageHalfBandInterpolator_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="multistagehalfbandinterpolator_param" />
+            <top_module name="tb_MultiStageHalfBandInterpolator" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="466360000fs"></ZoomStartTime>
+      <ZoomEndTime time="581660001fs"></ZoomEndTime>
+      <Cursor1Time time="55900000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="176"></NameColumnWidth>
+      <ValueColumnWidth column_width="237"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="19" />
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/SlaveAxi_RI">
+      <obj_property name="ElementShortName">SlaveAxi_RI</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_RI</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/SlaveAxi_RO">
+      <obj_property name="ElementShortName">SlaveAxi_RO</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_RO</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/OutEnable_S">
+      <obj_property name="ElementShortName">OutEnable_S</obj_property>
+      <obj_property name="ObjectShortName">OutEnable_S</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/OutEnable_SN">
+      <obj_property name="ElementShortName">OutEnable_SN</obj_property>
+      <obj_property name="ObjectShortName">OutEnable_SN</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxi_RI">
+      <obj_property name="ElementShortName">SlaveAxi_RI</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_RI</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxi_RO">
+      <obj_property name="ElementShortName">SlaveAxi_RO</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_RO</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxi_wready_SN">
+      <obj_property name="ElementShortName">SlaveAxi_wready_SN</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_wready_SN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxi_bvalid_SN">
+      <obj_property name="ElementShortName">SlaveAxi_bvalid_SN</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_bvalid_SN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxi_wvalid_S">
+      <obj_property name="ElementShortName">SlaveAxi_wvalid_S</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_wvalid_S</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxi_bready_S">
+      <obj_property name="ElementShortName">SlaveAxi_bready_S</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxi_bready_S</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SampleIn_D">
+      <obj_property name="ElementShortName">SampleIn_D[11:0]</obj_property>
+      <obj_property name="ObjectShortName">SampleIn_D[11:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SampleIn_DN">
+      <obj_property name="ElementShortName">SampleIn_DN[11:0]</obj_property>
+      <obj_property name="ObjectShortName">SampleIn_DN[11:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxiState_S">
+      <obj_property name="ElementShortName">SlaveAxiState_S</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxiState_S</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB2/SlaveAxiState_SN">
+      <obj_property name="ElementShortName">SlaveAxiState_SN</obj_property>
+      <obj_property name="ObjectShortName">SlaveAxiState_SN</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/MasterAxiState_S">
+      <obj_property name="ElementShortName">MasterAxiState_S</obj_property>
+      <obj_property name="ObjectShortName">MasterAxiState_S</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/MasterAxiState_SN">
+      <obj_property name="ElementShortName">MasterAxiState_SN</obj_property>
+      <obj_property name="ObjectShortName">MasterAxiState_SN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/MasterAxi_wvalid_SN">
+      <obj_property name="ElementShortName">MasterAxi_wvalid_SN</obj_property>
+      <obj_property name="ObjectShortName">MasterAxi_wvalid_SN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/MasterAxi_bready_SN">
+      <obj_property name="ElementShortName">MasterAxi_bready_SN</obj_property>
+      <obj_property name="ObjectShortName">MasterAxi_bready_SN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB3/MasterAxi_bvalid_S">
+      <obj_property name="ElementShortName">MasterAxi_bvalid_S</obj_property>
+      <obj_property name="ObjectShortName">MasterAxi_bvalid_S</obj_property>
+   </wvobject>
+</wave_config>

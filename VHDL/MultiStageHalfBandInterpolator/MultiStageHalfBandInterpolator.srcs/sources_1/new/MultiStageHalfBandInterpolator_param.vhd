@@ -57,22 +57,25 @@ package MultiStageHalfBandInterpolator_param is
 	--iv) Filter definitions
 	---------------------------------------------------------------------------------------------------------------------------------
 	
-	constant C_S_SAMPLE_DATA_WIDTH : integer:= 18;
-	type CoeffsArray is array (integer range <>) of std_logic_vector(15 downto 0);
+	constant C_S_SAMPLE_DATA_WIDTH : integer:= 12;
+	constant C_S_COEFF_DATA_WIDTH : integer:= 16;
+	type CoeffsArray is array (integer range <>) of signed(15 downto 0);
+	subtype Coeff is signed(C_S_COEFF_DATA_WIDTH-1 downto 0);
 	
 	constant PrescalerHB3: integer := 24;
-	constant CoeffsHB3: CoeffsArray(0 to 2) := (std_logic_vector(to_signed(347,16)),
-	 																			      std_logic_vector(to_signed(-1959,16)),
-	 																			      std_logic_vector(to_signed(9814,16)) );
-	 																				
+	-- <16,15>
+	constant C_HB3_0: Coeff:= to_signed(694,C_S_COEFF_DATA_WIDTH);
+	constant C_HB3_1: Coeff:= to_signed(-3918,C_S_COEFF_DATA_WIDTH);
+	constant C_HB3_2: Coeff:= to_signed(19628,C_S_COEFF_DATA_WIDTH);
+								
 	constant PrescalerHB2: integer := 12; 														
-	constant CoeffsHB2: CoeffsArray(0 to 1) := (std_logic_vector(to_signed(-1117,16)),
-																				 std_logic_vector(to_signed(9304,16)));	
-	
+	constant C_HB2_0: Coeff := to_signed(-2234,C_S_COEFF_DATA_WIDTH);
+	constant C_HB2_1: Coeff := to_signed(18608,C_S_COEFF_DATA_WIDTH);
+		
 	constant PrescalerHB1: integer := 6;	
-	constant CoeffsHB1: CoeffsArray(0 to 1) := (std_logic_vector(to_signed(-1046,16)),        
-																				 			std_logic_vector(to_signed(9238,16)));
-  
+	constant C_HB1_0: Coeff := to_signed(-2093,C_S_COEFF_DATA_WIDTH);
+	constant C_HB1_1: Coeff := to_signed(18476,C_S_COEFF_DATA_WIDTH);
+	
   ---------------------------------------------------------------------------------------------------------------------------------
   --AXI Bus Communication Interface Parameters 
   ---------------------------------------------------------------------------------------------------------------------------------
