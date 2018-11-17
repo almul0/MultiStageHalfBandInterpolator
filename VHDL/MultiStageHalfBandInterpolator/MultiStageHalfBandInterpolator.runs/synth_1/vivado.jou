@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2.2 (64-bit)
+# SW Build 2348494 on Mon Oct  1 18:25:39 MDT 2018
+# IP Build 2318053 on Mon Oct  1 21:44:26 MDT 2018
+# Start of session at: Sat Nov 17 17:44:46 2018
+# Process ID: 25783
+# Current directory: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.runs/synth_1
+# Command line: vivado -log MultiStageHalfBandInterpolator.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source MultiStageHalfBandInterpolator.tcl
+# Log file: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.runs/synth_1/MultiStageHalfBandInterpolator.vds
+# Journal file: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source MultiStageHalfBandInterpolator.tcl -notrace

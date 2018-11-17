@@ -1,0 +1,729 @@
+#-----------------------------------------------------------
+# Vivado v2018.2.2 (64-bit)
+# SW Build 2348494 on Mon Oct  1 18:25:39 MDT 2018
+# IP Build 2318053 on Mon Oct  1 21:44:26 MDT 2018
+# Start of session at: Sat Nov 17 17:44:46 2018
+# Process ID: 25783
+# Current directory: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.runs/synth_1
+# Command line: vivado -log MultiStageHalfBandInterpolator.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source MultiStageHalfBandInterpolator.tcl
+# Log file: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.runs/synth_1/MultiStageHalfBandInterpolator.vds
+# Journal file: /home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source MultiStageHalfBandInterpolator.tcl -notrace
+Command: synth_design -top MultiStageHalfBandInterpolator -part xc7z020clg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 25803 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:04 . Memory (MB): peak = 1233.855 ; gain = 79.754 ; free physical = 120 ; free virtual = 3587
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'MultiStageHalfBandInterpolator' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/MultiStageHalfBandInterpolator.vhd:48]
+	Parameter PRESCALER bound to: 24 - type: integer 
+	Parameter COEFF0 bound to: 16'sb0000001010011111 
+	Parameter COEFF1 bound to: 16'sb1111000011011100 
+	Parameter COEFF2 bound to: 16'sb0100110010010101 
+INFO: [Synth 8-3491] module 'HalfBandFilterThreeTaps' declared at '/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:38' bound to instance 'HB3' of component 'HalfBandFilterThreeTaps' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/MultiStageHalfBandInterpolator.vhd:86]
+INFO: [Synth 8-638] synthesizing module 'HalfBandFilterThreeTaps' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:54]
+	Parameter PRESCALER bound to: 24 - type: integer 
+	Parameter COEFF0 bound to: 16'b0000001010011111 
+	Parameter COEFF1 bound to: 16'b1111000011011100 
+	Parameter COEFF2 bound to: 16'b0100110010010101 
+WARNING: [Synth 8-6014] Unused sequential element MasterAxi_bresp_S_reg was removed.  [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:141]
+WARNING: [Synth 8-6014] Unused sequential element SlaveAxi_wstrb_S_reg was removed.  [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:145]
+INFO: [Synth 8-256] done synthesizing module 'HalfBandFilterThreeTaps' (1#1) [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:54]
+	Parameter PRESCALER bound to: 12 - type: integer 
+	Parameter COEFF0 bound to: 16'sb0000000110110011 
+	Parameter COEFF1 bound to: 16'sb1111001011101111 
+	Parameter COEFF2 bound to: 16'sb0100101101011110 
+INFO: [Synth 8-3491] module 'HalfBandFilterThreeTaps' declared at '/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:38' bound to instance 'HB2' of component 'HalfBandFilterThreeTaps' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/MultiStageHalfBandInterpolator.vhd:117]
+INFO: [Synth 8-638] synthesizing module 'HalfBandFilterThreeTaps__parameterized1' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:54]
+	Parameter PRESCALER bound to: 12 - type: integer 
+	Parameter COEFF0 bound to: 16'b0000000110110011 
+	Parameter COEFF1 bound to: 16'b1111001011101111 
+	Parameter COEFF2 bound to: 16'b0100101101011110 
+WARNING: [Synth 8-6014] Unused sequential element MasterAxi_bresp_S_reg was removed.  [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:141]
+WARNING: [Synth 8-6014] Unused sequential element SlaveAxi_wstrb_S_reg was removed.  [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:145]
+INFO: [Synth 8-256] done synthesizing module 'HalfBandFilterThreeTaps__parameterized1' (1#1) [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:54]
+	Parameter PRESCALER bound to: 6 - type: integer 
+	Parameter COEFF0 bound to: 16'sb1111011111011010 
+	Parameter COEFF1 bound to: 16'sb0100100000100110 
+INFO: [Synth 8-3491] module 'HalfBandFilterTwoTaps' declared at '/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterTwoTaps.vhd:38' bound to instance 'HB1' of component 'HalfBandFilterTwoTaps' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/MultiStageHalfBandInterpolator.vhd:149]
+INFO: [Synth 8-638] synthesizing module 'HalfBandFilterTwoTaps' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterTwoTaps.vhd:53]
+	Parameter PRESCALER bound to: 6 - type: integer 
+	Parameter COEFF0 bound to: 16'b1111011111011010 
+	Parameter COEFF1 bound to: 16'b0100100000100110 
+WARNING: [Synth 8-6014] Unused sequential element MasterAxi_bresp_S_reg was removed.  [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterTwoTaps.vhd:140]
+WARNING: [Synth 8-6014] Unused sequential element SlaveAxi_wstrb_S_reg was removed.  [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterTwoTaps.vhd:144]
+INFO: [Synth 8-256] done synthesizing module 'HalfBandFilterTwoTaps' (2#1) [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterTwoTaps.vhd:53]
+INFO: [Synth 8-256] done synthesizing module 'MultiStageHalfBandInterpolator' (3#1) [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/MultiStageHalfBandInterpolator.vhd:48]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][3]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][2]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][1]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][0]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port MasterAxi_RI[m_axi_bresp][1]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port MasterAxi_RI[m_axi_bresp][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][3]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][2]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port MasterAxi_RI[m_axi_bresp][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port MasterAxi_RI[m_axi_bresp][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][3]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][2]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port MasterAxi_RI[m_axi_bresp][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port MasterAxi_RI[m_axi_bresp][0]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 1279.480 ; gain = 125.379 ; free physical = 197 ; free virtual = 3558
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 1279.480 ; gain = 125.379 ; free physical = 212 ; free virtual = 3558
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 1279.480 ; gain = 125.379 ; free physical = 212 ; free virtual = 3558
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/constrs_1/new/constr1.xdc]
+Finished Parsing XDC File [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/constrs_1/new/constr1.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.22 . Memory (MB): peak = 1633.496 ; gain = 0.000 ; free physical = 123 ; free virtual = 3031
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:19 ; elapsed = 00:00:49 . Memory (MB): peak = 1633.496 ; gain = 479.395 ; free physical = 149 ; free virtual = 2926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:19 ; elapsed = 00:00:50 . Memory (MB): peak = 1633.496 ; gain = 479.395 ; free physical = 144 ; free virtual = 2926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:50 . Memory (MB): peak = 1633.496 ; gain = 479.395 ; free physical = 448 ; free virtual = 3220
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5544] ROM "MultA_S" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "Out2_DN" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "p_0_in" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-802] inferred FSM for state register 'SlaveAxiState_S_reg' in module 'HalfBandFilterThreeTaps'
+INFO: [Synth 8-802] inferred FSM for state register 'MasterAxiState_S_reg' in module 'HalfBandFilterThreeTaps'
+INFO: [Synth 8-5544] ROM "MultA_S" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "Out2_DN" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "p_0_in" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-802] inferred FSM for state register 'SlaveAxiState_S_reg' in module 'HalfBandFilterThreeTaps__parameterized1'
+INFO: [Synth 8-802] inferred FSM for state register 'MasterAxiState_S_reg' in module 'HalfBandFilterThreeTaps__parameterized1'
+INFO: [Synth 8-5544] ROM "MultA_S" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "Out2_DN" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "p_0_in" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-802] inferred FSM for state register 'SlaveAxiState_S_reg' in module 'HalfBandFilterTwoTaps'
+INFO: [Synth 8-802] inferred FSM for state register 'MasterAxiState_S_reg' in module 'HalfBandFilterTwoTaps'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              001 |                               00
+             wait_wvalid |                              010 |                               01
+             wait_bready |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'SlaveAxiState_S_reg' using encoding 'one-hot' in module 'HalfBandFilterThreeTaps'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              001 |                               00
+             wait_wready |                              010 |                               01
+             wait_bvalid |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'MasterAxiState_S_reg' using encoding 'one-hot' in module 'HalfBandFilterThreeTaps'
+WARNING: [Synth 8-327] inferring latch for variable 'Out2_DN_reg' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:174]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              001 |                               00
+             wait_wvalid |                              010 |                               01
+             wait_bready |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'SlaveAxiState_S_reg' using encoding 'one-hot' in module 'HalfBandFilterThreeTaps__parameterized1'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              001 |                               00
+             wait_wready |                              010 |                               01
+             wait_bvalid |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'MasterAxiState_S_reg' using encoding 'one-hot' in module 'HalfBandFilterThreeTaps__parameterized1'
+WARNING: [Synth 8-327] inferring latch for variable 'Out2_DN_reg' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:174]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              001 |                               00
+             wait_wvalid |                              010 |                               01
+             wait_bready |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'SlaveAxiState_S_reg' using encoding 'one-hot' in module 'HalfBandFilterTwoTaps'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              001 |                               00
+             wait_wready |                              010 |                               01
+             wait_bvalid |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'MasterAxiState_S_reg' using encoding 'one-hot' in module 'HalfBandFilterTwoTaps'
+WARNING: [Synth 8-327] inferring latch for variable 'Out2_DN_reg' [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterTwoTaps.vhd:173]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:20 ; elapsed = 00:00:51 . Memory (MB): peak = 1633.496 ; gain = 479.395 ; free physical = 956 ; free virtual = 3528
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     30 Bit       Adders := 3     
+	   2 Input     14 Bit       Adders := 6     
+	   2 Input      5 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 1     
+	   2 Input      3 Bit       Adders := 3     
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 6     
+	               30 Bit    Registers := 6     
+	               14 Bit    Registers := 3     
+	               13 Bit    Registers := 16    
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 4     
+	                3 Bit    Registers := 3     
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 33    
++---Muxes : 
+	   2 Input     30 Bit        Muxes := 4     
+	   3 Input     30 Bit        Muxes := 2     
+	   2 Input     16 Bit        Muxes := 6     
+	   3 Input     16 Bit        Muxes := 2     
+	   2 Input     15 Bit        Muxes := 3     
+	   2 Input     14 Bit        Muxes := 10    
+	   4 Input     14 Bit        Muxes := 4     
+	   3 Input     14 Bit        Muxes := 2     
+	   2 Input     13 Bit        Muxes := 9     
+	   3 Input     13 Bit        Muxes := 5     
+	   2 Input      5 Bit        Muxes := 1     
+	   5 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   5 Input      4 Bit        Muxes := 1     
+	   3 Input      3 Bit        Muxes := 3     
+	   2 Input      3 Bit        Muxes := 3     
+	   4 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 24    
+	   5 Input      1 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 9     
+	   4 Input      1 Bit        Muxes := 3     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module HalfBandFilterThreeTaps 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     30 Bit       Adders := 1     
+	   2 Input     14 Bit       Adders := 2     
+	   2 Input      5 Bit       Adders := 1     
+	   2 Input      3 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 2     
+	               30 Bit    Registers := 2     
+	               14 Bit    Registers := 1     
+	               13 Bit    Registers := 6     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 11    
++---Muxes : 
+	   2 Input     30 Bit        Muxes := 1     
+	   3 Input     30 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 2     
+	   3 Input     16 Bit        Muxes := 1     
+	   2 Input     15 Bit        Muxes := 1     
+	   2 Input     14 Bit        Muxes := 4     
+	   4 Input     14 Bit        Muxes := 2     
+	   2 Input     13 Bit        Muxes := 3     
+	   3 Input     13 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 1     
+	   5 Input      5 Bit        Muxes := 1     
+	   3 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 8     
+	   5 Input      1 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 3     
+Module HalfBandFilterThreeTaps__parameterized1 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     30 Bit       Adders := 1     
+	   2 Input     14 Bit       Adders := 2     
+	   2 Input      4 Bit       Adders := 1     
+	   2 Input      3 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 2     
+	               30 Bit    Registers := 2     
+	               14 Bit    Registers := 1     
+	               13 Bit    Registers := 6     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 11    
++---Muxes : 
+	   2 Input     30 Bit        Muxes := 1     
+	   3 Input     30 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 2     
+	   3 Input     16 Bit        Muxes := 1     
+	   2 Input     15 Bit        Muxes := 1     
+	   2 Input     14 Bit        Muxes := 4     
+	   4 Input     14 Bit        Muxes := 2     
+	   2 Input     13 Bit        Muxes := 3     
+	   3 Input     13 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   5 Input      4 Bit        Muxes := 1     
+	   3 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 8     
+	   5 Input      1 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 3     
+Module HalfBandFilterTwoTaps 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     30 Bit       Adders := 1     
+	   2 Input     14 Bit       Adders := 2     
+	   2 Input      3 Bit       Adders := 1     
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 2     
+	               30 Bit    Registers := 2     
+	               14 Bit    Registers := 1     
+	               13 Bit    Registers := 4     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 11    
++---Muxes : 
+	   2 Input     30 Bit        Muxes := 2     
+	   2 Input     16 Bit        Muxes := 2     
+	   2 Input     15 Bit        Muxes := 1     
+	   2 Input     14 Bit        Muxes := 2     
+	   3 Input     14 Bit        Muxes := 2     
+	   2 Input     13 Bit        Muxes := 3     
+	   3 Input     13 Bit        Muxes := 3     
+	   3 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   4 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 8     
+	   4 Input      1 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 3     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+INFO: [Synth 8-5544] ROM "MultA_S" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+DSP Report: Generating DSP MultResult_SN, operation Mode is: A*B.
+DSP Report: operator MultResult_SN is absorbed into DSP MultResult_SN.
+INFO: [Synth 8-5544] ROM "MultA_S" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+DSP Report: Generating DSP MultResult_SN, operation Mode is: A*B.
+DSP Report: operator MultResult_SN is absorbed into DSP MultResult_SN.
+DSP Report: Generating DSP MultResult_SN, operation Mode is: A*B.
+DSP Report: operator MultResult_SN is absorbed into DSP MultResult_SN.
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][3]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][2]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][1]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][0]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port MasterAxi_RI[m_axi_bresp][1]
+WARNING: [Synth 8-3331] design HalfBandFilterTwoTaps has unconnected port MasterAxi_RI[m_axi_bresp][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][3]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][2]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port SlaveAxi_RI[s_axi_wstrb][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port MasterAxi_RI[m_axi_bresp][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps__parameterized1 has unconnected port MasterAxi_RI[m_axi_bresp][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][3]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][2]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port SlaveAxi_RI[s_axi_wstrb][0]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port MasterAxi_RI[m_axi_bresp][1]
+WARNING: [Synth 8-3331] design HalfBandFilterThreeTaps has unconnected port MasterAxi_RI[m_axi_bresp][0]
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wstrb][3]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wstrb][2]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wstrb][1]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wstrb][0]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wstrb][3]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wstrb][2]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wstrb][1]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wstrb][0]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wstrb][0]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][1]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wstrb][1]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][2]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wstrb][2]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][3]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][13]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][13]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][14]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][15]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][16]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][17]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][18]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][19]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][20]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][21]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][22]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][23]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][24]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][25]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][26]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][27]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][28]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][29]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][30]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB3/MasterAxi_RO_reg[m_axi_wdata][31]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/SlaveAxi_RO_reg[s_axi_bresp][0]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/SlaveAxi_RO_reg[s_axi_bresp][1]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][13]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][14]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][15]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][16]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][17]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][18]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][19]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][20]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][21]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][22]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][23]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][24]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][25]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][26]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][27]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][28]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][29]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][30]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB2/MasterAxi_RO_reg[m_axi_wdata][31]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/SlaveAxi_RO_reg[s_axi_bresp][0]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/SlaveAxi_RO_reg[s_axi_bresp][1]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][14]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][15]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][16]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][17]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][18]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][19]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][20]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][21]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][22]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][23]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][24]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][25]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][26]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][27]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][28]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][29]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][30]' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]'
+INFO: [Synth 8-3886] merging instance 'HB1/MasterAxi_RO_reg[m_axi_wdata][31]' (FDC) to 'HB3/SlaveAxi_RO_reg[s_axi_bresp][0]'
+INFO: [Synth 8-3886] merging instance 'HB3/SlaveAxi_RO_reg[s_axi_bresp][0]' (FDC) to 'HB3/SlaveAxi_RO_reg[s_axi_bresp][1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\HB3/SlaveAxi_RO_reg[s_axi_bresp][1] )
+WARNING: [Synth 8-3332] Sequential element (HB3/Out2_DN_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/Out2_DN_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/Out2_D_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/Out2_D_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[31]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[30]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[27]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[26]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[25]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[24]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[23]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[22]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[21]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[20]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[19]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[18]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[17]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[16]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[15]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[14]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_wdata_S_reg[13]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/MultResult_S_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/MultResult_S_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/Out2_DN_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/Out2_DN_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/Out2_D_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/Out2_D_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[31]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[30]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[27]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[26]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[25]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[24]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[23]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[22]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[21]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[20]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[19]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[18]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[17]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[16]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[15]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[14]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/SlaveAxi_wdata_S_reg[13]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/MultResult_S_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB2/MultResult_S_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/Out2_DN_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/Out2_DN_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/Out2_D_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/Out2_D_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[31]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[30]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[27]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[26]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[25]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[24]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[23]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[22]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[21]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[20]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[19]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[18]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[17]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[16]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[15]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[14]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/SlaveAxi_wdata_S_reg[13]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/MultResult_S_reg[29]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB1/MultResult_S_reg[28]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+WARNING: [Synth 8-3332] Sequential element (HB3/SlaveAxi_RO_reg[s_axi_bresp][1]) is unused and will be removed from module MultiStageHalfBandInterpolator.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:56 . Memory (MB): peak = 1633.496 ; gain = 479.395 ; free physical = 849 ; free virtual = 3499
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+DSP: Preliminary Mapping  Report (see note below)
++------------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name             | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|HalfBandFilterThreeTaps | A*B         | 16     | 14     | -      | -      | 30     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|HalfBandFilterThreeTaps | A*B         | 16     | 14     | -      | -      | 30     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|HalfBandFilterTwoTaps   | A*B         | 16     | 14     | -      | -      | 30     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:34 ; elapsed = 00:01:11 . Memory (MB): peak = 1634.496 ; gain = 480.395 ; free physical = 802 ; free virtual = 3501
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:01:11 . Memory (MB): peak = 1659.527 ; gain = 505.426 ; free physical = 794 ; free virtual = 3491
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5844] Detected registers with asynchronous reset at DSP/BRAM block boundary. Consider using synchronous reset for optimal packing [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:133]
+INFO: [Synth 8-5844] Detected registers with asynchronous reset at DSP/BRAM block boundary. Consider using synchronous reset for optimal packing [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterThreeTaps.vhd:133]
+INFO: [Synth 8-5844] Detected registers with asynchronous reset at DSP/BRAM block boundary. Consider using synchronous reset for optimal packing [/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.srcs/sources_1/new/HalfBandFilterTwoTaps.vhd:132]
+INFO: [Synth 8-3886] merging instance 'i_1280' (FDC) to 'i_1338'
+INFO: [Synth 8-3886] merging instance 'i_1309' (FDC) to 'i_1338'
+INFO: [Synth 8-3886] merging instance 'i_1338' (FDC) to 'HB1/MasterAxi_RO_reg[m_axi_wstrb][3]'
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:36 ; elapsed = 00:01:12 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 794 ; free virtual = 3489
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:36 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 785 ; free virtual = 3489
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:36 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 785 ; free virtual = 3489
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:37 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 783 ; free virtual = 3489
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:37 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 783 ; free virtual = 3489
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:37 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 783 ; free virtual = 3489
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:37 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 783 ; free virtual = 3489
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |BUFG    |     1|
+|2     |CARRY4  |    45|
+|3     |DSP48E1 |     3|
+|4     |LUT1    |     5|
+|5     |LUT2    |    11|
+|6     |LUT3    |   127|
+|7     |LUT4    |    87|
+|8     |LUT5    |   108|
+|9     |LUT6    |   225|
+|10    |FDCE    |   394|
+|11    |FDPE    |     6|
+|12    |FDRE    |    84|
+|13    |LD      |    84|
+|14    |IBUF    |    19|
+|15    |OBUF    |    44|
++------+--------+------+
+
+Report Instance Areas: 
++------+---------+----------------------------------------+------+
+|      |Instance |Module                                  |Cells |
++------+---------+----------------------------------------+------+
+|1     |top      |                                        |  1243|
+|2     |  HB1    |HalfBandFilterTwoTaps                   |   348|
+|3     |  HB2    |HalfBandFilterThreeTaps__parameterized1 |   411|
+|4     |  HB3    |HalfBandFilterThreeTaps                 |   420|
++------+---------+----------------------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:37 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.535 ; gain = 513.434 ; free physical = 783 ; free virtual = 3489
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 97 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:25 ; elapsed = 00:00:40 . Memory (MB): peak = 1667.535 ; gain = 159.418 ; free physical = 858 ; free virtual = 3566
+Synthesis Optimization Complete : Time (s): cpu = 00:00:37 ; elapsed = 00:01:13 . Memory (MB): peak = 1667.543 ; gain = 513.434 ; free physical = 853 ; free virtual = 3565
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 151 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 84 instances were transformed.
+  LD => LDCE: 84 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+125 Infos, 121 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:39 ; elapsed = 00:01:19 . Memory (MB): peak = 1667.543 ; gain = 513.688 ; free physical = 787 ; free virtual = 3566
+WARNING: [Constraints 18-5210] No constraint will be written out.
+INFO: [Common 17-1381] The checkpoint '/home/almul0/Universidad/ityst/17-18/TFG/TFG-Code/VHDL/MultiStageHalfBandInterpolator/MultiStageHalfBandInterpolator.runs/synth_1/MultiStageHalfBandInterpolator.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file MultiStageHalfBandInterpolator_utilization_synth.rpt -pb MultiStageHalfBandInterpolator_utilization_synth.pb
+report_utilization: Time (s): cpu = 00:00:00.25 ; elapsed = 00:00:01 . Memory (MB): peak = 1691.547 ; gain = 0.000 ; free physical = 870 ; free virtual = 3739
+INFO: [Common 17-206] Exiting Vivado at Sat Nov 17 17:46:43 2018...

@@ -66,10 +66,12 @@ architecture Behavioral of HalfBandFilterThreeTaps is
 	
 	signal MasterAxi_wvalid_SN, MasterAxi_bready_SN: std_logic := '0';
 	signal MasterAxi_wready_S, MasterAxi_bvalid_S: std_logic := '0';
+	signal MasterAxi_bresp_S: std_logic_vector	(1 downto 0); 
 	signal MasterAxi_wdata_SN: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);
 	
 	signal SlaveAxi_wready_SN, SlaveAxi_bvalid_SN: std_logic := '0'; 
-	signal SlaveAxi_wdata_SN: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);
+	signal SlaveAxi_wdata_S: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);
+	signal SlaveAxi_wstrb_S: std_logic_vector	((C_S_AXI_DATA_WIDTH/8)-1 downto 0);
 	signal SlaveAxi_wvalid_S, SlaveAxi_bready_S: std_logic;		
 	
 	-- Posicion 0 muestra actual
@@ -124,11 +126,6 @@ begin
 		      SlaveAxi_RO.s_axi_wready <= '0';
 		      SlaveAxi_RO.s_axi_bresp <= (others => '0');																					
 		      SlaveAxi_RO.s_axi_bvalid <= '0';
-		      
---		      MasterAxi_wready_S <= '0';
---					MasterAxi_bvalid_S <= '0';
---					SlaveAxi_wvalid_S <= '0';
---					SlaveAxi_bready_S <= '0';
 	        
 	        DelayLine <= (others => (others => '0'));
 	        
@@ -139,6 +136,14 @@ begin
 	        
 	        OpCounter_S <= (others => '0');
 	        
+	        MasterAxi_wready_S <= '0';
+					MasterAxi_bvalid_S <= '0';
+					MasterAxi_bresp_S <= (others => '0');	
+					SlaveAxi_wvalid_S <= '0';
+					SlaveAxi_bready_S <= '0';
+					SlaveAxi_wdata_S <= (others => '0');
+					SlaveAxi_wstrb_S <= (others => '0');
+	        
 	    elsif(rising_edge(SlaveAxi_RI.s_axi_aclk)) then
 	    	
 	    	OutSelector_S <= OutSelector_SN;
@@ -147,7 +152,7 @@ begin
 	    	OutEnable_S <= OutEnable_SN;
 	    	OpEnable_S <= OpEnable_SN;
 	    	SlaveAxiState_S <= SlaveAxiState_SN;
-	    	MasterAxiState_S <= MasterAxiState_SN;	    	
+	    	MasterAxiState_S <= MasterAxiState_SN;    	
 	    	
 	    	MasterAxi_RO.m_axi_wstrb  <= (others => '1');
         MasterAxi_RO.m_axi_wdata  <= MasterAxi_wdata_SN;
@@ -157,6 +162,14 @@ begin
 	    	SlaveAxi_RO.s_axi_wready <= SlaveAxi_wready_SN;
 				SlaveAxi_RO.s_axi_bresp <=  (others => '0');
 				SlaveAxi_RO.s_axi_bvalid <= SlaveAxi_bvalid_SN;
+				
+				MasterAxi_wready_S <= MasterAxi_RI.m_axi_wready;
+				MasterAxi_bvalid_S <= MasterAxi_RI.m_axi_bvalid;
+				MasterAxi_bresp_S <= MasterAxi_RI.m_axi_bresp;
+				SlaveAxi_wvalid_S <= SlaveAxi_RI.s_axi_wvalid;
+				SlaveAxi_bready_S <= SlaveAxi_RI.s_axi_bready;
+				SlaveAxi_wdata_S <= SlaveAxi_RI.s_axi_wdata;
+				SlaveAxi_wstrb_S <= SlaveAxi_RI.s_axi_wstrb;	
 				
 				Out2_D <= Out2_DN;
 				
@@ -173,14 +186,11 @@ begin
 	    end if; 
 	end process;
 	
-	MasterAxi_wready_S <= MasterAxi_RI.m_axi_wready;
-	MasterAxi_bvalid_S <= MasterAxi_RI.m_axi_bvalid;
-	SlaveAxi_wvalid_S <= SlaveAxi_RI.s_axi_wvalid;
-	SlaveAxi_bready_S <= SlaveAxi_RI.s_axi_bready;
+	
 
 	MultResult_SN <= MultA_S * MultB_S;
 	
-	FILTER_OPS: process(OpCounter_S, OpEnable_S, OutEnable_S, ClkDividerCounter_S, MultResult_S, SumResult_S)
+	FILTER_OPS: process(OpCounter_S, OpEnable_S, OutEnable_S, SampleIn_D, ClkDividerCounter_S, MultResult_S, SumResult_S, DelayLine, Out2_D)
 	begin
 	
 		OutSelector_SN <= '0';
@@ -239,7 +249,7 @@ begin
 		
 	end process;
 	
-	MASTERAXI_DECODE: process(MasterAxiState_S, OutEnable_S, ClkDividerCounter_S, MasterAxi_wready_S, MasterAxi_bvalid_S)
+	MASTERAXI_DECODE: process(MasterAxiState_S, OutEnable_S, OutSelector_S, DelayLine, ClkDividerCounter_S, Out2_D, MasterAxi_wready_S, MasterAxi_bvalid_S)
 	variable axi_sample_data: signed(C_S_SAMPLE_DATA_WIDTH-1 downto 0);
 	begin
 				
@@ -292,7 +302,7 @@ begin
 		end case;
 	end process;
 
-	SLAVEAXI_DECODE: process(SlaveAxiState_S,  SlaveAxi_wvalid_S, SlaveAxi_bready_S)
+	SLAVEAXI_DECODE: process(SlaveAxiState_S, SampleIn_D, SlaveAxi_wvalid_S, SlaveAxi_bready_S, SlaveAxi_wdata_S)
 	begin
 		-- State Machine controlling data input
 		SlaveAxi_wready_SN <= '0';
@@ -313,7 +323,7 @@ begin
 				if SlaveAxi_wvalid_S = '1' then
 					SlaveAxi_wready_SN <= '0';
 					SlaveAxi_bvalid_SN <= '1';
-					SampleIn_DN <= signed(SlaveAxi_RI.s_axi_wdata(C_S_SAMPLE_DATA_WIDTH-1 downto 0));
+					SampleIn_DN <= signed(SlaveAxi_wdata_S(C_S_SAMPLE_DATA_WIDTH-1 downto 0));
 					
 					OpEnable_SN <= '1';
 					
