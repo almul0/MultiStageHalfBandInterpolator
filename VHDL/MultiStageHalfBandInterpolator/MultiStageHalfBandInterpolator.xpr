@@ -33,7 +33,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="514"/>
+    <Option Name="WTXSimLaunchSim" Val="640"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -123,7 +123,7 @@
       <File Path="$PSRCDIR/sim_1/imports/signal_characterization/test_signal_5.dat">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../signal_characterization/test_signal_5.dat"/>
-          <Attr Name="ImportTime" Val="1542309307"/>
+          <Attr Name="ImportTime" Val="1542422390"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -143,11 +143,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sim_1/imports/signal_characterization/test_results_5.dat">
+      <File Path="$PPRDIR/tb_MultiStageHalfBandInterpolator_behav_HB1.wcfg">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../signal_characterization/test_results_5.dat"/>
-          <Attr Name="ImportTime" Val="1542360413"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -162,6 +159,7 @@
         <Option Name="XSimWcfgFile" Val="$PPRDIR/tb_MultiStageHalfBandInterpolator_behav.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/tb_MultiStageHalfBandInterpolator_behav_FIR.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/tb_MultiStageHalfBandInterpolator_behavFIROUT.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/tb_MultiStageHalfBandInterpolator_behav_HB1.wcfg"/>
       </Config>
     </FileSet>
   </FileSets>

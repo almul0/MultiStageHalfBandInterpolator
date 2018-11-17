@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_MultiStageHalfBandInterpolator_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="multistagehalfbandinterpolator_param" />
+            <top_module name="tb_MultiStageHalfBandInterpolator" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="10000931750000fs"></ZoomStartTime>
+      <ZoomEndTime time="10001013650001fs"></ZoomEndTime>
+      <Cursor1Time time="10001000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="173"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="13" />
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/SampleIn_D">
+      <obj_property name="ElementShortName">SampleIn_D[12:0]</obj_property>
+      <obj_property name="ObjectShortName">SampleIn_D[12:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/DelayLine">
+      <obj_property name="ElementShortName">DelayLine[0:2][12:0]</obj_property>
+      <obj_property name="ObjectShortName">DelayLine[0:2][12:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/ClkDividerCounter_S">
+      <obj_property name="ElementShortName">ClkDividerCounter_S[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ClkDividerCounter_S[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/OutEnable_S">
+      <obj_property name="ElementShortName">OutEnable_S</obj_property>
+      <obj_property name="ObjectShortName">OutEnable_S</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/OpEnable_S">
+      <obj_property name="ElementShortName">OpEnable_S</obj_property>
+      <obj_property name="ObjectShortName">OpEnable_S</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/OpCounter_S">
+      <obj_property name="ElementShortName">OpCounter_S[1:0]</obj_property>
+      <obj_property name="ObjectShortName">OpCounter_S[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/SumResult_S">
+      <obj_property name="ElementShortName">SumResult_S[13:0]</obj_property>
+      <obj_property name="ObjectShortName">SumResult_S[13:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MultResult_S">
+      <obj_property name="ElementShortName">MultResult_S[29:0]</obj_property>
+      <obj_property name="ObjectShortName">MultResult_S[29:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MultA_S">
+      <obj_property name="ElementShortName">MultA_S[15:0]</obj_property>
+      <obj_property name="ObjectShortName">MultA_S[15:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/MultB_S">
+      <obj_property name="ElementShortName">MultB_S[13:0]</obj_property>
+      <obj_property name="ObjectShortName">MultB_S[13:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/Out2_D">
+      <obj_property name="ElementShortName">Out2_D[29:0]</obj_property>
+      <obj_property name="ObjectShortName">Out2_D[29:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/OutSelector_S">
+      <obj_property name="ElementShortName">OutSelector_S</obj_property>
+      <obj_property name="ObjectShortName">OutSelector_S</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_MultiStageHalfBandInterpolator/uut/HB1/OutDebug_D">
+      <obj_property name="ElementShortName">OutDebug_D[12:0]</obj_property>
+      <obj_property name="ObjectShortName">OutDebug_D[12:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+</wave_config>

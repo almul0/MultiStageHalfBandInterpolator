@@ -114,11 +114,12 @@ begin
 		MasterAxi_RI.m_axi_bvalid  => Master03Axi_RI.m_axi_bvalid	
 	);
 	
-	HB2: HalfBandFilterTwoTaps
+	HB2: HalfBandFilterThreeTaps
 		GENERIC MAP(
 			PRESCALER => PrescalerHB2,
 				COEFF0 => C_HB2_0,
-				COEFF1 => C_HB2_1
+				COEFF1 => C_HB2_1,
+				COEFF2 => C_HB2_2
 		)
 		PORT MAP(
 			SlaveAxi_RI.s_axi_aclk     => Master03Axi_RO.m_axi_aclk,

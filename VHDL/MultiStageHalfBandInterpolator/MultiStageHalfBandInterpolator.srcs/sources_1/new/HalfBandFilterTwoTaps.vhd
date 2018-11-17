@@ -78,16 +78,17 @@ architecture Behavioral of HalfBandFilterTwoTaps is
 	
 	signal ClkDividerCounter_S,ClkDividerCounter_SN: unsigned(integer(floor(log2(real(PRESCALER)))) downto 0) := (others => '0');
 	signal OutEnable_S,OutEnable_SN: std_logic := '0';
+	signal OpEnable_S,OpEnable_SN: std_logic := '0';
 	
-	signal OpCounter_S, OpCounter_SN: unsigned(integer(floor(log2(real(N_OP)))) downto 0) := (others => '0');
+	signal OpCounter_S, OpCounter_SN: unsigned(integer(floor(log2(real(N_OP+1)))) downto 0) := (others => '0');
 	
 	signal SumResult_S, SumResult_SN: signed(C_S_SAMPLE_DATA_WIDTH downto 0):= (others => '0');	
-	signal MultResult_S, MultResult_SN: signed(C_S_COEFF_DATA_WIDTH + C_S_SAMPLE_DATA_WIDTH downto 0) := (others => '0');
+	signal MultResult_S, MultResult_SN: signed(C_S_COEFF_DATA_WIDTH + SumResult_S'LENGTH - 1  downto 0) := (others => '0');
 	
 	signal MultA_S: signed(C_S_COEFF_DATA_WIDTH-1 downto 0);									
 	signal MultB_S: signed(C_S_SAMPLE_DATA_WIDTH downto 0);
 
-	signal Out2_D, Out2_DN: signed(C_S_COEFF_DATA_WIDTH + C_S_SAMPLE_DATA_WIDTH + integer(floor(log2(real(N_COEFF)))) downto 0) := (others => '0');
+	signal Out2_D, Out2_DN: signed(MultResult_S'LENGTH - 2 + integer(floor(log2(real(N_COEFF)))) downto 0) := (others => '0');
 	signal Out_D : signed(C_S_SAMPLE_DATA_WIDTH-1 downto 0) := (others => '0');	
 	signal OutSelector_S,OutSelector_SN: std_logic := '0';
 	
@@ -109,6 +110,7 @@ begin
 	        ClkDividerCounter_S <= (others => '0');
 	        
 	        OutEnable_S <= '0';
+	        OpEnable_S <= '0';
 	        SlaveAxiState_S <= IDLE;
 	        MasterAxiState_S <= IDLE;
 
@@ -142,6 +144,7 @@ begin
 	    	ClkDividerCounter_S <= ClkDividerCounter_SN;
 	    	
 	    	OutEnable_S <= OutEnable_SN;
+	    	OpEnable_S <= OpEnable_SN;
 	    	SlaveAxiState_S <= SlaveAxiState_SN;
 	    	MasterAxiState_S <= MasterAxiState_SN;	    	
 	    	
@@ -162,9 +165,8 @@ begin
 				MultResult_S <= MultResult_SN;
 				SumResult_S <= SumResult_SN;
 				
-				if ( OutEnable_SN = '1') then
+				if ( OpEnable_SN = '1') then
 					DelayLine <= SampleIn_D & DelayLine(0 to DelayLine'length-2);
-					Out2_D <= (others => '0');
 				end if;
 				
 	    end if; 
@@ -177,9 +179,23 @@ begin
 
 	MultResult_SN <= MultA_S * MultB_S;
 	
-	FILTER_OPS: process(OpCounter_S, OutEnable_S,MultResult_S,SumResult_S)
+	FILTER_OPS: process(OpCounter_S, OpEnable_S, OutEnable_S, ClkDividerCounter_S, MultResult_S, SumResult_S)
 	begin
-		if ( (OpCounter_S > 0 and OpCounter_S < N_OP) OR OutEnable_S = '1') then
+	
+		OutSelector_SN <= '0';
+		OutEnable_SN <= '0';
+		
+		if ( (ClkDividerCounter_S > 0 and ClkDividerCounter_S <= PRESCALER) OR OutEnable_S = '1') then
+			ClkDividerCounter_SN <= ClkDividerCounter_S + 1;
+		else
+			ClkDividerCounter_SN <= ClkDividerCounter_S;
+		end if;
+		
+		if ( ClkDividerCounter_S >= PRESCALER-1 ) then
+				OutSelector_SN <= '1';
+		end if;
+	
+		if ( (OpCounter_S > 0 and OpCounter_S <= N_OP) OR OpEnable_S = '1') then
 			OpCounter_SN <= OpCounter_S + 1;
 		else 
 			OpCounter_SN <= (others => '0');
@@ -187,22 +203,28 @@ begin
 		
 		MultA_S <= (others => '0');
 		MultB_S <= (others => '0');
-		
-		if (OpCounter_S = 0 AND OutEnable_S = '1') then
+				
+		if (OpCounter_S = 0 AND OpEnable_S = '1') then
 			SumResult_SN <= resize(SampleIn_D,SumResult_SN'length) + DelayLine(DelayLine'LENGTH-1);
 		elsif ( OpCounter_S = 1 ) then
 			MultA_S <= COEFF0;
 			MultB_S <= SumResult_S;
-			SumResult_SN <= resize(DelayLine(to_integer(OpCounter_S)),SumResult_SN'length) + 
+			SumResult_SN <= resize(DelayLine(to_integer(OpCounter_S)-1),SumResult_SN'length) + 
 										  DelayLine(DelayLine'LENGTH-1-to_integer(OpCounter_S));
 		elsif ( OpCounter_S = 2 ) then
-			Out2_DN <= resize(MultResult_S,Out2_DN'length);
+			Out2_DN <= resize(MultResult_S(MultResult_S'length-2 downto 0),Out2_DN'length);
 			MultA_S <= COEFF1;
 			MultB_S <= SumResult_S;
-			SumResult_SN <=  resize(DelayLine(to_integer(OpCounter_S)),SumResult_SN'length) + 
+			SumResult_SN <=  resize(DelayLine(to_integer(OpCounter_S)-1),SumResult_SN'length) + 
 											 DelayLine(DelayLine'LENGTH-1-to_integer(OpCounter_S));
 		elsif ( OpCounter_S = 3 ) then
-			Out2_DN <= Out2_D + resize(MultResult_S,Out2_DN'length);
+			-- Quitamos bit de signo duplicado y sumamos
+			Out2_DN <= Out2_D + MultResult_S;
+			SumResult_SN <= (others => '0');
+			OutEnable_SN <= '1';
+			OutSelector_SN <= '0';
+			
+			ClkDividerCounter_SN <= (others => '0');
 		else 
 			Out2_DN <= Out2_D;
 			SumResult_SN <= (others => '0');
@@ -221,10 +243,11 @@ begin
 		
 		OutDebug_D <= (others => '0');
 		
-		if ( OutSelector_S = '0' ) then
-			axi_sample_data := DelayLine(1);
+		if ( OutSelector_S = '1' ) then
+			axi_sample_data := DelayLine(0);
 		else
-			axi_sample_data := resize(shift_right(Out2_D,15),axi_sample_data'length);			
+		  -- Truncamos a dos bits de parte entera para convertirlo en fraccionario
+			axi_sample_data :=  shift_right(Out2_D,15)(axi_sample_data'length-1 downto 0);					
 		end if;
 		
 		MasterAxi_wvalid_SN <= '0';	
@@ -262,25 +285,15 @@ begin
 		end case;
 	end process;
 
-	SLAVEAXI_DECODE: process(SlaveAxiState_S, ClkDividerCounter_S, SlaveAxi_wvalid_S, SlaveAxi_bready_S)
+	SLAVEAXI_DECODE: process(SlaveAxiState_S,  SlaveAxi_wvalid_S, SlaveAxi_bready_S)
 	begin
 		-- State Machine controlling data input
 		SlaveAxi_wready_SN <= '0';
 		SlaveAxi_bvalid_SN <= '0';		
-		OutEnable_SN <= '0';
-		OutSelector_SN <= '0';
+		OpEnable_SN <= '0';
+		
 		SlaveAxiState_SN <= SlaveAxiState_S;
 		SampleIn_DN <= SampleIn_D;		
-		
-		if ( (ClkDividerCounter_S > 0 and ClkDividerCounter_S <= PRESCALER) OR OutEnable_S = '1') then
-			ClkDividerCounter_SN <= ClkDividerCounter_S + 1;
-		else
-			ClkDividerCounter_SN <= ClkDividerCounter_S;
-		end if;
-		
-		if ( ClkDividerCounter_S >= PRESCALER-1 ) then
-				OutSelector_SN <= '1';
-		end if;
 		
 		case SlaveAxiState_S is
 			WHEN IDLE =>			
@@ -295,11 +308,7 @@ begin
 					SlaveAxi_bvalid_SN <= '1';
 					SampleIn_DN <= signed(SlaveAxi_RI.s_axi_wdata(C_S_SAMPLE_DATA_WIDTH-1 downto 0));
 					
-					OutEnable_SN <= '1';
-					
-					OutSelector_SN <= '0';
-					
-					ClkDividerCounter_SN <= (others => '0');
+					OpEnable_SN <= '1';
 					
 					SlaveAxiState_SN <= WAIT_BREADY;
 				end if;
