@@ -64,9 +64,9 @@ package MultiStageHalfBandInterpolator_param is
 	
 	constant PrescalerHB3: integer := 24;
 	-- <16,15>
-	constant C_HB3_0: Coeff:= to_signed(671,C_S_COEFF_DATA_WIDTH);
-	constant C_HB3_1: Coeff:= to_signed(-3876,C_S_COEFF_DATA_WIDTH);
-	constant C_HB3_2: Coeff:= to_signed(19605,C_S_COEFF_DATA_WIDTH);
+	constant C_HB3_0: Coeff:= to_signed(636,C_S_COEFF_DATA_WIDTH);
+	constant C_HB3_1: Coeff:= to_signed(-3809,C_S_COEFF_DATA_WIDTH);
+	constant C_HB3_2: Coeff:= to_signed(19569,C_S_COEFF_DATA_WIDTH);
 								
 	constant PrescalerHB2: integer := 12; 														
 	constant C_HB2_0: Coeff := to_signed(435,C_S_COEFF_DATA_WIDTH);
@@ -83,85 +83,45 @@ package MultiStageHalfBandInterpolator_param is
   ---------------------------------------------------------------------------------------------------------------------------------
 	
 	--Records for the Slave AXI Bus Interface in "S_AXI_lite.vhd" file
-	type GLOBAL2SAXILITE is record
-	 s_axi_aclk		: std_logic;                                            --! Global Clock Signal.
-	 s_axi_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
-	 --s_axi_awaddr	    : std_logic_vector	(C_S_AXI_ADDR_WIDTH-1 downto 0);    --! Write address (issued by master, acceped by Slave).
-	 --s_axi_awprot	    : std_logic_vector	(2 downto 0);                       --! Write channel Protection type. This signal indicates the privilege and security level of the transaction, and whether the transaction is a data access or an instruction access.
-	 --s_axi_awvalid	: std_logic;                                            --! Write address valid. This signal indicates that the master signaling valid write address and control information.
-	 s_axi_wdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
-	 s_axi_wstrb		: std_logic_vector	((C_S_AXI_DATA_WIDTH/8)-1 downto 0);--! Write strobes. This signal indicates which byte lanes hold valid data. There is one write strobe bit for each eight bits of the write data bus.  
-	 s_axi_wvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
-	 s_axi_bready	    : std_logic;                                            --! Response ready. This signal indicates that the master can accept a write response.
-	 --s_axi_araddr	    : std_logic_vector	(C_S_AXI_ADDR_WIDTH-1 downto 0);    --! Read address (issued by master, acceped by Slave)
-	 --s_axi_arprot	    : std_logic_vector	(2 downto 0);                       --! Protection type. This signal indicates the privilege and security level of the transaction, and whether the transaction is a data access or an instruction access.
-	 --s_axi_arvalid	: std_logic;                                            --! Read address valid. This signal indicates that the channel is signaling valid read address and control information.
-	 --s_axi_rready	    : std_logic;                                            --! Read ready. This signal indicates that the master can accept the read data and response information.	
-	end record GLOBAL2SAXILITE;	
+	type GLOBAL2SAXIS is record
+	 s_axis_aclk		: std_logic;                                            --! Global Clock Signal.
+	 s_axis_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
+	 s_axis_tdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
+	 s_axis_tvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
+	end record GLOBAL2SAXIS;	
 	
-	type SAXILITE2GLOBAL is record														
-	 --s_axi_awready    : std_logic;                                            --! Write address ready. This signal indicates that the slave is ready to accept an address and associated control signals.														--! Write valid. This signal indicates that valid write data and strobes are available.		
-	 s_axi_wready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
-	 s_axi_bresp      : std_logic_vector	(1 downto 0);                       --! Write response. This signal indicates the status of the write transaction.
-	 s_axi_bvalid     : std_logic;                                            --! Write response valid. This signal indicates that the channel is signaling a valid write response.														--! Read address valid. This signal indicates that the channel is signaling valid read address and control information.
-	 --s_axi_arready    : std_logic;                                            --! Read address ready. This signal indicates that the slave is ready to accept an address and associated control signals.
-	 --s_axi_rdata      : std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Read data (issued by slave) 
-	 --s_axi_rresp      : std_logic_vector	(1 downto 0);                       --! Read response. This signal indicates the status of the read transfer.
-	 --s_axi_rvalid     : std_logic;                                            --! Read valid. This signal indicates that the channel is signaling the required read data.
-	end record SAXILITE2GLOBAL;
+	type SAXIS2GLOBAL is record														
+	 s_axis_tready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
+	 end record SAXIS2GLOBAL;
 	
-	constant GLOBAL2SAXILITE_INIT : GLOBAL2SAXILITE := (
-		s_axi_aclk => '0',
-		s_axi_aresetn => '0',																					
-		s_axi_wdata => (others => '0'),
-		s_axi_wstrb =>(others => '1'),
-		s_axi_wvalid => '0',
-		s_axi_bready => '0');
+	constant GLOBAL2SAXIS_INIT : GLOBAL2SAXIS := (
+		s_axis_aclk => '0',
+		s_axis_aresetn => '0',																					
+		s_axis_tdata => (others => '0'),
+		s_axis_tvalid => '0');
 		
-	constant SAXILITE2GLOBAL_INIT : SAXILITE2GLOBAL := (
-				s_axi_wready => '0',
-				s_axi_bresp => (others => '0'),																					
-				s_axi_bvalid => '0');
+	constant SAXIS2GLOBAL_INIT : SAXIS2GLOBAL := (
+				s_axis_tready => '0');
 	
 	--Records for the Slave AXI Bus Interface in "S_AXI_lite.vhd" file
-	type MAXILITE2GLOBAL is record
-	 m_axi_aclk		: std_logic;                                            --! Global Clock Signal.
-	 m_axi_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
-	 --s_axi_awaddr	    : std_logic_vector	(C_S_AXI_ADDR_WIDTH-1 downto 0);    --! Write address (issued by master, acceped by Slave).
-	 --s_axi_awprot	    : std_logic_vector	(2 downto 0);                       --! Write channel Protection type. This signal indicates the privilege and security level of the transaction, and whether the transaction is a data access or an instruction access.
-	 --s_axi_awvalid	: std_logic;                                            --! Write address valid. This signal indicates that the master signaling valid write address and control information.
-	 m_axi_wdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
-	 m_axi_wstrb		: std_logic_vector	((C_S_AXI_DATA_WIDTH/8)-1 downto 0);--! Write strobes. This signal indicates which byte lanes hold valid data. There is one write strobe bit for each eight bits of the write data bus.  
-	 m_axi_wvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
-	 m_axi_bready	    : std_logic;                                            --! Response ready. This signal indicates that the master can accept a write response.
-	 --s_axi_araddr	    : std_logic_vector	(C_S_AXI_ADDR_WIDTH-1 downto 0);    --! Read address (issued by master, acceped by Slave)
-	 --s_axi_arprot	    : std_logic_vector	(2 downto 0);                       --! Protection type. This signal indicates the privilege and security level of the transaction, and whether the transaction is a data access or an instruction access.
-	 --s_axi_arvalid	: std_logic;                                            --! Read address valid. This signal indicates that the channel is signaling valid read address and control information.
-	 --s_axi_rready	    : std_logic;                                            --! Read ready. This signal indicates that the master can accept the read data and response information.	
-	end record MAXILITE2GLOBAL;	
-	type GLOBAL2MAXILITE is record														
-	 --s_axi_awready    : std_logic;                                            --! Write address ready. This signal indicates that the slave is ready to accept an address and associated control signals.														--! Write valid. This signal indicates that valid write data and strobes are available.		
-	 m_axi_wready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
-	 m_axi_bresp      : std_logic_vector	(1 downto 0);                       --! Write response. This signal indicates the status of the write transaction.
-	 m_axi_bvalid     : std_logic;                                            --! Write response valid. This signal indicates that the channel is signaling a valid write response.														--! Read address valid. This signal indicates that the channel is signaling valid read address and control information.
-	 --s_axi_arready    : std_logic;                                            --! Read address ready. This signal indicates that the slave is ready to accept an address and associated control signals.
-	 --s_axi_rdata      : std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Read data (issued by slave) 
-	 --s_axi_rresp      : std_logic_vector	(1 downto 0);                       --! Read response. This signal indicates the status of the read transfer.
-	 --s_axi_rvalid     : std_logic;                                            --! Read valid. This signal indicates that the channel is signaling the required read data.
-	end record GLOBAL2MAXILITE;	
+	type MAXIS2GLOBAL is record
+	 m_axis_aclk		: std_logic;                                            --! Global Clock Signal.
+	 m_axis_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
+	 m_axis_tdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
+	 m_axis_tvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
+	 end record MAXIS2GLOBAL;	
+	type GLOBAL2MAXIS is record														
+		m_axis_tready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
+	end record GLOBAL2MAXIS;	
 	
-	constant MAXILITE2GLOBAL_INIT : MAXILITE2GLOBAL := (
-			m_axi_aclk => '0',
-			m_axi_aresetn => '0',																					
-			m_axi_wdata => (others => '0'),
-			m_axi_wstrb =>(others => '1'),
-			m_axi_wvalid => '0',
-			m_axi_bready => '0');
+	constant MAXIS2GLOBAL_INIT : MAXIS2GLOBAL := (
+			m_axis_aclk => '0',
+			m_axis_aresetn => '0',																					
+			m_axis_tdata => (others => '0'),
+			m_axis_tvalid => '0');
 			
-		constant GLOBAL2MAXILITE_INIT : GLOBAL2MAXILITE := (
-					m_axi_wready => '0',
-					m_axi_bresp => (others => '0'),																					
-					m_axi_bvalid => '0');
+		constant GLOBAL2MAXIS_INIT : GLOBAL2MAXIS := (
+					m_axis_tready => '0');
 	
 end MultiStageHalfBandInterpolator_param;
 
