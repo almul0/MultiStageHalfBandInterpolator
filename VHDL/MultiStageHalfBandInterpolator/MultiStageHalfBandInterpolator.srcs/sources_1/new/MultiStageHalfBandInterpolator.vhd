@@ -91,19 +91,19 @@ begin
 		COEFF2 => C_HB3_2
 	)
 	PORT MAP(
-		SlaveAxi_RI.s_axi_aclk     => SlaveAxi_RI.s_axi_aclk,
-		SlaveAxi_RI.s_axi_aresetn  => SlaveAxi_RI.s_axi_aresetn,
-		SlaveAxi_RI.s_axi_tdata    => SlaveAxi_RI.s_axi_tdata,
-		SlaveAxi_RI.s_axi_tvalid   => SlaveAxi_RI.s_axi_tvalid,
+		SlaveAxi_RI.s_axis_aclk     => SlaveAxi_RI.s_axis_aclk,
+		SlaveAxi_RI.s_axis_aresetn  => SlaveAxi_RI.s_axis_aresetn,
+		SlaveAxi_RI.s_axis_tdata    => SlaveAxi_RI.s_axis_tdata,
+		SlaveAxi_RI.s_axis_tvalid   => SlaveAxi_RI.s_axis_tvalid,
 
-		SlaveAxi_RO.s_axi_tready   => SlaveAxi_RO.s_axi_tready,
+		SlaveAxi_RO.s_axis_tready   => SlaveAxi_RO.s_axis_tready,
 		
-		MasterAxi_RO.m_axi_aclk    => Master03Axi_RO.m_axi_aclk,
-		MasterAxi_RO.m_axi_aresetn => Master03Axi_RO.m_axi_aresetn,
-		MasterAxi_RO.m_axi_tdata   => Master03Axi_RO.m_axi_tdata,
-		MasterAxi_RO.m_axi_tvalid  => Master03Axi_RO.m_axi_tvalid,
+		MasterAxi_RO.m_axis_aclk    => Master03Axi_RO.m_axis_aclk,
+		MasterAxi_RO.m_axis_aresetn => Master03Axi_RO.m_axis_aresetn,
+		MasterAxi_RO.m_axis_tdata   => Master03Axi_RO.m_axis_tdata,
+		MasterAxi_RO.m_axis_tvalid  => Master03Axi_RO.m_axis_tvalid,
 
-		MasterAxi_RI.m_axi_tready  => Master03Axi_RI.m_axi_tready
+		MasterAxi_RI.m_axis_tready  => Master03Axi_RI.m_axis_tready
 	);
 	
 	HB2: HalfBandFilterThreeTaps
@@ -114,19 +114,19 @@ begin
 				COEFF2 => C_HB2_2
 		)
 		PORT MAP(
-			SlaveAxi_RI.s_axi_aclk     => Master03Axi_RO.m_axi_aclk,
-			SlaveAxi_RI.s_axi_aresetn  => Master03Axi_RO.m_axi_aresetn,
-			SlaveAxi_RI.s_axi_tdata    => Master03Axi_RO.m_axi_tdata,
-			SlaveAxi_RI.s_axi_tvalid   => Master03Axi_RO.m_axi_tvalid,
+			SlaveAxi_RI.s_axis_aclk     => Master03Axi_RO.m_axis_aclk,
+			SlaveAxi_RI.s_axis_aresetn  => Master03Axi_RO.m_axis_aresetn,
+			SlaveAxi_RI.s_axis_tdata    => Master03Axi_RO.m_axis_tdata,
+			SlaveAxi_RI.s_axis_tvalid   => Master03Axi_RO.m_axis_tvalid,
 	
-			SlaveAxi_RO.s_axi_tready   => Master03Axi_RI.m_axi_tready,
+			SlaveAxi_RO.s_axis_tready   => Master03Axi_RI.m_axis_tready,
 			
-			MasterAxi_RO.m_axi_aclk    => Master02Axi_RO.m_axi_aclk,
-			MasterAxi_RO.m_axi_aresetn => Master02Axi_RO.m_axi_aresetn,
-			MasterAxi_RO.m_axi_tdata   => Master02Axi_RO.m_axi_tdata,
-			MasterAxi_RO.m_axi_tvalid  => Master02Axi_RO.m_axi_tvalid,
+			MasterAxi_RO.m_axis_aclk    => Master02Axi_RO.m_axis_aclk,
+			MasterAxi_RO.m_axis_aresetn => Master02Axi_RO.m_axis_aresetn,
+			MasterAxi_RO.m_axis_tdata   => Master02Axi_RO.m_axis_tdata,
+			MasterAxi_RO.m_axis_tvalid  => Master02Axi_RO.m_axis_tvalid,
 
-			MasterAxi_RI.m_axi_tready  => Master02Axi_RI.m_axi_tready
+			MasterAxi_RI.m_axis_tready  => Master02Axi_RI.m_axis_tready
 			
 		);
 		
@@ -137,19 +137,19 @@ begin
 				COEFF1 => C_HB1_1
 			)
 			PORT MAP(
-				SlaveAxi_RI.s_axi_aclk     => Master02Axi_RO.m_axi_aclk,
-				SlaveAxi_RI.s_axi_aresetn  => Master02Axi_RO.m_axi_aresetn,
-				SlaveAxi_RI.s_axi_tdata    => Master02Axi_RO.m_axi_tdata,
-				SlaveAxi_RI.s_axi_tvalid   => Master02Axi_RO.m_axi_tvalid,
+				SlaveAxi_RI.s_axis_aclk     => Master02Axi_RO.m_axis_aclk,
+				SlaveAxi_RI.s_axis_aresetn  => Master02Axi_RO.m_axis_aresetn,
+				SlaveAxi_RI.s_axis_tdata    => Master02Axi_RO.m_axis_tdata,
+				SlaveAxi_RI.s_axis_tvalid   => Master02Axi_RO.m_axis_tvalid,
 		
-				SlaveAxi_RO.s_axi_tready   => Master02Axi_RI.m_axi_tready,
+				SlaveAxi_RO.s_axis_tready   => Master02Axi_RI.m_axis_tready,
 				
-				MasterAxi_RO.m_axi_aclk    => MasterAxi_RO.m_axi_aclk,
-				MasterAxi_RO.m_axi_aresetn => MasterAxi_RO.m_axi_aresetn,
-				MasterAxi_RO.m_axi_tdata   => MasterAxi_RO.m_axi_tdata,
-				MasterAxi_RO.m_axi_tvalid  => MasterAxi_RO.m_axi_tvalid,
+				MasterAxi_RO.m_axis_aclk    => MasterAxi_RO.m_axis_aclk,
+				MasterAxi_RO.m_axis_aresetn => MasterAxi_RO.m_axis_aresetn,
+				MasterAxi_RO.m_axis_tdata   => MasterAxi_RO.m_axis_tdata,
+				MasterAxi_RO.m_axis_tvalid  => MasterAxi_RO.m_axis_tvalid,
 	
-				MasterAxi_RI.m_axi_tready  => MasterAxi_RI.m_axi_tready
+				MasterAxi_RI.m_axis_tready  => MasterAxi_RI.m_axis_tready
 			);
 	
 end Behavioral;

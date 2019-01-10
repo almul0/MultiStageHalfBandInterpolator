@@ -84,44 +84,44 @@ package MultiStageHalfBandInterpolator_param is
 	
 	--Records for the Slave AXI Bus Interface in "S_AXI_lite.vhd" file
 	type GLOBAL2SAXIS is record
-	 s_axi_aclk		: std_logic;                                            --! Global Clock Signal.
-	 s_axi_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
-	 s_axi_tdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
-	 s_axi_tvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
+	 s_axis_aclk		: std_logic;                                            --! Global Clock Signal.
+	 s_axis_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
+	 s_axis_tdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
+	 s_axis_tvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
 	end record GLOBAL2SAXIS;	
 	
 	type SAXIS2GLOBAL is record														
-	 s_axi_tready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
+	 s_axis_tready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
 	 end record SAXIS2GLOBAL;
 	
 	constant GLOBAL2SAXIS_INIT : GLOBAL2SAXIS := (
-		s_axi_aclk => '0',
-		s_axi_aresetn => '0',																					
-		s_axi_tdata => (others => '0'),
-		s_axi_tvalid => '0');
+		s_axis_aclk => '0',
+		s_axis_aresetn => '0',																					
+		s_axis_tdata => (others => '0'),
+		s_axis_tvalid => '0');
 		
 	constant SAXIS2GLOBAL_INIT : SAXIS2GLOBAL := (
-				s_axi_tready => '0');
+				s_axis_tready => '0');
 	
 	--Records for the Slave AXI Bus Interface in "S_AXI_lite.vhd" file
 	type MAXIS2GLOBAL is record
-	 m_axi_aclk		: std_logic;                                            --! Global Clock Signal.
-	 m_axi_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
-	 m_axi_tdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
-	 m_axi_tvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
+	 m_axis_aclk		: std_logic;                                            --! Global Clock Signal.
+	 m_axis_aresetn	: std_logic;                                            --! Global Reset Signal. This Signal is Active LOW.
+	 m_axis_tdata		: std_logic_vector	(C_S_AXI_DATA_WIDTH-1 downto 0);    --! Write data (issued by master, acceped by Slave) 
+	 m_axis_tvalid	    : std_logic;                                            --! Write valid. This signal indicates that valid write data and strobes are available.		
 	 end record MAXIS2GLOBAL;	
 	type GLOBAL2MAXIS is record														
-		m_axi_tready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
+		m_axis_tready     : std_logic;                                            --! Write ready. This signal indicates that the slave can accept the write data.
 	end record GLOBAL2MAXIS;	
 	
 	constant MAXIS2GLOBAL_INIT : MAXIS2GLOBAL := (
-			m_axi_aclk => '0',
-			m_axi_aresetn => '0',																					
-			m_axi_tdata => (others => '0'),
-			m_axi_tvalid => '0');
+			m_axis_aclk => '0',
+			m_axis_aresetn => '0',																					
+			m_axis_tdata => (others => '0'),
+			m_axis_tvalid => '0');
 			
 		constant GLOBAL2MAXIS_INIT : GLOBAL2MAXIS := (
-					m_axi_tready => '0');
+					m_axis_tready => '0');
 	
 end MultiStageHalfBandInterpolator_param;
 

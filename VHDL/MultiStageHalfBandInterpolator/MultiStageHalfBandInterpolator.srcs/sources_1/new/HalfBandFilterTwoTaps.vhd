@@ -98,14 +98,14 @@ architecture Behavioral of HalfBandFilterTwoTaps is
 
 begin
 
-	MasterAxi_RO.m_axi_aclk <= SlaveAxi_RI.s_axi_aclk;
-	MasterAxi_RO.m_axi_aresetn <= SlaveAxi_RI.s_axi_aresetn;
+	MasterAxi_RO.m_axis_aclk <= SlaveAxi_RI.s_axis_aclk;
+	MasterAxi_RO.m_axis_aresetn <= SlaveAxi_RI.s_axis_aresetn;
 	
 	--seq_proc
-	process(SlaveAxi_RI.s_axi_aclk,SlaveAxi_RI.s_axi_aresetn)
+	process(SlaveAxi_RI.s_axis_aclk,SlaveAxi_RI.s_axis_aresetn)
 	begin
 	
-	    if(SlaveAxi_RI.s_axi_aresetn = '0') then    --active high reset for the counter.
+	    if(SlaveAxi_RI.s_axis_aresetn = '0') then    --active high reset for the counter.
 	        OutSelector_S <= '0';
 	        ClkDividerCounter_S <= (others => '0');
 	        
@@ -115,10 +115,10 @@ begin
 	        MasterAxiState_S <= IDLE;
 
       
-		      MasterAxi_RO.m_axi_tdata  <= (others => '0'); 
-		      MasterAxi_RO.m_axi_tvalid	<= '0';		
+		      MasterAxi_RO.m_axis_tdata  <= (others => '0'); 
+		      MasterAxi_RO.m_axis_tvalid	<= '0';		
 		      
-		      SlaveAxi_RO.s_axi_tready <= '0';
+		      SlaveAxi_RO.s_axis_tready <= '0';
 	        
 	        DelayLine <= (others => (others => '0'));
 	        
@@ -133,7 +133,7 @@ begin
 					SlaveAxi_tvalid_S <= '0';
 					SlaveAxi_tdata_S <= (others => '0');
 	        
-	    elsif(rising_edge(SlaveAxi_RI.s_axi_aclk)) then
+	    elsif(rising_edge(SlaveAxi_RI.s_axis_aclk)) then
 	    	
 	    	OutSelector_S <= OutSelector_SN;
 	    	ClkDividerCounter_S <= ClkDividerCounter_SN;
@@ -143,14 +143,14 @@ begin
 	    	SlaveAxiState_S <= SlaveAxiState_SN;
 	    	MasterAxiState_S <= MasterAxiState_SN;    	
 	    	
-        MasterAxi_RO.m_axi_tdata  <= MasterAxi_tdata_SN;
-				MasterAxi_RO.m_axi_tvalid	<= MasterAxi_tvalid_SN;
+        MasterAxi_RO.m_axis_tdata  <= MasterAxi_tdata_SN;
+				MasterAxi_RO.m_axis_tvalid	<= MasterAxi_tvalid_SN;
 
-	    	SlaveAxi_RO.s_axi_tready <= SlaveAxi_tready_SN;
+	    	SlaveAxi_RO.s_axis_tready <= SlaveAxi_tready_SN;
 				
-				MasterAxi_tready_S <= MasterAxi_RI.m_axi_tready;
-				SlaveAxi_tvalid_S <= SlaveAxi_RI.s_axi_tvalid;
-				SlaveAxi_tdata_S <= SlaveAxi_RI.s_axi_tdata;
+				MasterAxi_tready_S <= MasterAxi_RI.m_axis_tready;
+				SlaveAxi_tvalid_S <= SlaveAxi_RI.s_axis_tvalid;
+				SlaveAxi_tdata_S <= SlaveAxi_RI.s_axis_tdata;
 				
 				Out2_D <= Out2_DN;
 				
@@ -242,7 +242,7 @@ begin
 		end if;
 		
 		MasterAxi_tvalid_SN <= '0';	
-		MasterAxi_tdata_SN <= (MasterAxi_RO.m_axi_tdata'length-1 downto axi_sample_data'length => '0') & std_logic_vector(axi_sample_data);
+		MasterAxi_tdata_SN <= (MasterAxi_RO.m_axis_tdata'length-1 downto axi_sample_data'length => '0') & std_logic_vector(axi_sample_data);
 		OutDebug_D <=  axi_sample_data;
 		
 		case MasterAxiState_S is
